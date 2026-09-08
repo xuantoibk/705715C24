@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\EolTester.Core\EolTester.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 4 file seed: vừa copy ra SeedData\ cạnh exe (con người sửa tay), VỪA nhúng vào assembly làm bản gốc
+         để KHÔI PHỤC khi file trên đĩa bị thiếu (xem SeedFiles + App.xaml.cs hỏi khôi phục/thoát lúc khởi động).
+         - spec-register-map.csv: Key -> Address thanh ghi + Scale/Heading/Type. Xem CsvSpecRegisterMapSource.
+         - io-map-seed.csv: bản đồ I/O mặc định (chỉ dùng khi io-map.json chưa tồn tại). Xem CsvIoMapSeedSource.
+         - spec-Default.csv: tiêu đề header + tên Model mặc định. Xem CsvDefaultProjectInfoSource.
+         - users-seed.csv: tài khoản khởi tạo (plaintext, băm khi tạo users.json). Xem FileUserStore. -->
+    <EmbeddedResource Include="SeedData\spec-register-map.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\io-map-seed.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\spec-Default.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\users-seed.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

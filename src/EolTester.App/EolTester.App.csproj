@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\EolTester.Core\EolTester.Core.csproj" />
+    <ProjectReference Include="..\EolTester.Communication\EolTester.Communication.csproj" />
+    <ProjectReference Include="..\EolTester.Configuration\EolTester.Configuration.csproj" />
+    <ProjectReference Include="..\EolTester.Data\EolTester.Data.csproj" />
+    <ProjectReference Include="..\EolTester.Security\EolTester.Security.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\**\*.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="System.IO.Ports" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\Logo3.ico</ApplicationIcon>
+    <!-- App chỉ dùng VI (neutral, trong EolTester.App.dll) + EN (satellite en-US). Chỉ giữ satellite en-US;
+         bỏ toàn bộ satellite ngôn ngữ khác của framework WPF (cs/de/tr/zh-Hans/... — chuỗi dịch sẵn của
+         PresentationFramework/WindowsBase..., ~8.7 MB, 13 thư mục, không dùng trên máy chạy VN). -->
+    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+</Project>

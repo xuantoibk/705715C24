@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EolTester.App/EolTester.App.csproj" />
+    <Project Path="src/EolTester.Communication/EolTester.Communication.csproj" />
+    <Project Path="src/EolTester.Configuration/EolTester.Configuration.csproj" />
+    <Project Path="src/EolTester.Core/EolTester.Core.csproj" />
+    <Project Path="src/EolTester.Data/EolTester.Data.csproj" />
+    <Project Path="src/EolTester.Security/EolTester.Security.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/EolTester.Communication.Tests/EolTester.Communication.Tests.csproj" />
+    <Project Path="tests/EolTester.Core.Tests/EolTester.Core.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tmp/">
+    <Project Path="tmp/PlcReadProbe/PlcReadProbe.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Header -->
+  <data name="Header_Title" xml:space="preserve"><value>END-OF-LINE TEST MACHINE 705/715</value></data>
+  <data name="Header_Tab_Main" xml:space="preserve"><value>Automatic</value></data>
+  <data name="Header_Tab_Monitor" xml:space="preserve"><value>Monitor / Manual</value></data>
+  <data name="Header_Tab_Setup" xml:space="preserve"><value>Setup / About</value></data>
+  <data name="Header_Tab_Setting" xml:space="preserve"><value>Set Spec.</value></data>
+  <data name="Header_LoginUserTooltip" xml:space="preserve"><value>Username</value></data>
+  <data name="Header_LoginPasswordTooltip" xml:space="preserve"><value>Password</value></data>
+  <data name="Header_Login" xml:space="preserve"><value>Login</value></data>
+  <data name="Header_Logout" xml:space="preserve"><value>Logout</value></data>
+
+  <!-- Footer -->
+  <data name="Footer_LotInfo" xml:space="preserve"><value>LOT INFO</value></data>
+  <data name="Footer_Model" xml:space="preserve"><value>Model:</value></data>
+  <data name="Footer_Date" xml:space="preserve"><value>Date:</value></data>
+  <data name="Footer_Job" xml:space="preserve"><value>Job:</value></data>
+  <data name="Footer_JobId" xml:space="preserve"><value>Job ID:</value></data>
+  <data name="Footer_ConfirmJob" xml:space="preserve"><value>CONFIRM JOB</value></data>
+  <data name="Footer_Status" xml:space="preserve"><value>STATUS</value></data>
+  <data name="Footer_CycleTime" xml:space="preserve"><value>Cycle time:</value></data>
+  <data name="Footer_NgStatusNone" xml:space="preserve"><value>No result yet</value></data>
+  <data name="Footer_NgStatusOk" xml:space="preserve"><value>Product OK</value></data>
+  <data name="Footer_NgStatusNg" xml:space="preserve"><value>NG detected</value></data>
+  <data name="Footer_ConfirmNg" xml:space="preserve"><value>CONFIRM NG</value></data>
+  <data name="Footer_ScanBarcode" xml:space="preserve"><value>SCAN BARCODE</value></data>
+  <data name="Footer_ScanInput" xml:space="preserve"><value>Scanned code</value></data>
+  <data name="Footer_ScanRecognized" xml:space="preserve"><value>Recognized code</value></data>
+  <data name="Footer_Operation" xml:space="preserve"><value>OPERATION</value></data>
+  <data name="Footer_Reset" xml:space="preserve"><value>RESET</value></data>
+
+  <!-- Main tab -->
+  <data name="Main_HighMode" xml:space="preserve"><value>High mode</value></data>
+  <data name="Main_LowMode" xml:space="preserve"><value>Low mode</value></data>
+  <data name="Spec_Voltage" xml:space="preserve"><value>Motor Speed</value></data>
+  <data name="Spec_Current" xml:space="preserve"><value>Current</value></data>
+  <data name="Spec_Vacuum" xml:space="preserve"><value>Vacuum Force</value></data>
+  <data name="Spec_Led1Check" xml:space="preserve"><value>Check LED 1</value></data>
+  <data name="Spec_Led2Check" xml:space="preserve"><value>Check LED 2</value></data>
+  <data name="Main_Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Main_LowerLimit" xml:space="preserve"><value>Lower limit</value></data>
+  <data name="Main_Value" xml:space="preserve"><value>Value</value></data>
+  <data name="Main_UpperLimit" xml:space="preserve"><value>Upper limit</value></data>
+  <data name="Main_Unit" xml:space="preserve"><value>Unit</value></data>
+  <data name="Main_PlcGain" xml:space="preserve"><value>PLC Gain</value></data>
+  <data name="Main_SignalIndicator" xml:space="preserve"><value>Signal indicators</value></data>
+  <data name="Main_NotificationHistory" xml:space="preserve"><value>Notification / error history</value></data>
+  <data name="Main_NotConfigured" xml:space="preserve"><value>not configured</value></data>
+  <data name="Main_OkNg" xml:space="preserve"><value>OK / NG</value></data>
+  <data name="Main_ResultHeader" xml:space="preserve"><value>Result</value></data>
+  <data name="Main_LedSignalHeader" xml:space="preserve"><value>LED SIGNAL</value></data>
+  <data name="Main_Led1" xml:space="preserve"><value>LED 1</value></data>
+  <data name="Main_Led2" xml:space="preserve"><value>LED 2</value></data>
+  <data name="Main_Led3" xml:space="preserve"><value>LED 3</value></data>
+  <data name="Main_SensorHeader" xml:space="preserve"><value>PRODUCT SENSOR</value></data>
+  <data name="Main_ProductDetected" xml:space="preserve"><value>Product present</value></data>
+
+  <!-- Monitor tab -->
+  <data name="Monitor_Mode" xml:space="preserve"><value>Operating mode:</value></data>
+  <data name="Monitor_Auto" xml:space="preserve"><value>AUTO</value></data>
+  <data name="Monitor_Manual" xml:space="preserve"><value>MANUAL</value></data>
+  <data name="Monitor_ManualHint" xml:space="preserve"><value>(User login or higher required to switch mode / manual control)</value></data>
+  <data name="Monitor_Input" xml:space="preserve"><value>Inputs</value></data>
+  <data name="Monitor_Output" xml:space="preserve"><value>Outputs</value></data>
+  <data name="Monitor_Point" xml:space="preserve"><value>Point</value></data>
+  <data name="Monitor_Label" xml:space="preserve"><value>Label</value></data>
+  <data name="Monitor_ManualControl" xml:space="preserve"><value>Manual control</value></data>
+  <data name="Monitor_ImportLabel" xml:space="preserve"><value>IMPORT LABEL</value></data>
+  <data name="Monitor_ExportLabel" xml:space="preserve"><value>EXPORT LABEL</value></data>
+  <data name="Monitor_AdminOnlyHint" xml:space="preserve"><value>(Admin role required to Import/Export labels)</value></data>
+  <data name="Monitor_ImportSuccess" xml:space="preserve"><value>Imported {0} I/O points from the CSV file.</value></data>
+  <data name="Monitor_ImportBlocked" xml:space="preserve"><value>Import blocked — the CSV file has {0} error(s). Please fix and retry:
+{1}</value></data>
+  <data name="Monitor_ExportSuccess" xml:space="preserve"><value>Exported {0} I/O points to CSV file.</value></data>
+  <data name="Monitor_CsvFilter" xml:space="preserve"><value>CSV files (*.csv)|*.csv</value></data>
+  <data name="Monitor_CsvErrorRow" xml:space="preserve"><value>Row {0}: {1}</value></data>
+  <data name="Monitor_UnexpectedError" xml:space="preserve"><value>An error occurred: {0}</value></data>
+  <data name="Monitor_CsvMissingAddress" xml:space="preserve"><value>Missing status bit address</value></data>
+  <data name="Monitor_CsvMissingKey" xml:space="preserve"><value>Missing point text</value></data>
+  <data name="Monitor_CsvMissingLabel1" xml:space="preserve"><value>Missing Language 1 label (required)</value></data>
+  <data name="Monitor_CsvUnknownDirection" xml:space="preserve"><value>Could not determine I/O direction from "{0}" (must start with X or Y)</value></data>
+  <data name="Monitor_CsvMissingLabel2" xml:space="preserve"><value>Missing Language 2 label — will fall back to Language 1 when displayed</value></data>
+  <data name="Monitor_CsvMissingLabel3" xml:space="preserve"><value>Missing Language 3 label — will fall back to Language 1 when displayed</value></data>
+  <data name="Monitor_CsvCommandOrHandoverOnInput" xml:space="preserve"><value>Input point "{0}" has CommandAddress/HandoverAddress — ignoring both columns, they only apply to Output</value></data>
+
+  <!-- Setup tab -->
+  <data name="Setup_Title" xml:space="preserve"><value>PLC Connection Configuration</value></data>
+  <data name="Setup_AdminHint" xml:space="preserve"><value>(Admin login required to edit)</value></data>
+  <data name="Setup_Protocol" xml:space="preserve"><value>Protocol</value></data>
+  <data name="Setup_ComPort" xml:space="preserve"><value>COM Port</value></data>
+  <data name="Setup_BaudRate" xml:space="preserve"><value>Baud rate</value></data>
+  <data name="Setup_Parity" xml:space="preserve"><value>Parity</value></data>
+  <data name="Setup_DataStopBits" xml:space="preserve"><value>Data bits / Stop bits</value></data>
+  <data name="Setup_StationAddress" xml:space="preserve"><value>Station address (Slave ID)</value></data>
+  <data name="Setup_PollingInterval" xml:space="preserve"><value>Polling interval (ms)</value></data>
+  <data name="Setup_TimeoutRetry" xml:space="preserve"><value>Timeout / Retry</value></data>
+  <data name="Setup_Ms" xml:space="preserve"><value>ms /</value></data>
+  <data name="Setup_Times" xml:space="preserve"><value>retries</value></data>
+  <data name="Setup_SaveConfig" xml:space="preserve"><value>Save configuration</value></data>
+  <data name="Setup_SaveSuccess" xml:space="preserve"><value>Configuration saved at {0}.</value></data>
+  <data name="Setup_TestConnection" xml:space="preserve"><value>Test Connection</value></data>
+  <data name="Setup_TestResultReal" xml:space="preserve"><value>Test connection ({0}, {1}) succeeded at {2} — read a real value from the PLC: {3}</value></data>
+  <data name="Setup_TestResultError" xml:space="preserve"><value>Test connection failed: {0}</value></data>
+  <data name="Setup_ProtocolLockedHint" xml:space="preserve"><value>Changing Protocol requires restarting the software to take effect</value></data>
+  <data name="Setup_IpAddress" xml:space="preserve"><value>IP Address</value></data>
+  <data name="Setup_Port" xml:space="preserve"><value>Port</value></data>
+  <data name="Setup_McFrameFormat" xml:space="preserve"><value>Frame format</value></data>
+  <data name="Setup_RefreshPorts" xml:space="preserve"><value>Refresh</value></data>
+  <data name="Setup_RegisterBlockTitle" xml:space="preserve"><value>Register read/write block (PC as Master, PLC as Slave)</value></data>
+  <data name="Setup_RegisterBlockHint" xml:space="preserve"><value>Each polling cycle, the PC reads the whole Input block once and writes the whole Output block once. Enter addresses as numbers (e.g. 1000 = D1000).</value></data>
+  <data name="Setup_InputBlock" xml:space="preserve"><value>Input block</value></data>
+  <data name="Setup_OutputBlock" xml:space="preserve"><value>Output block</value></data>
+  <data name="Setup_RegisterCount" xml:space="preserve"><value>Register count</value></data>
+  <data name="Setup_RegisterCountWarning" xml:space="preserve"><value>{0} registers exceeds the Modbus RTU limit of {1} per request — will need about {2} consecutive requests per cycle, which may slow down cycle time.</value></data>
+  <data name="Setup_Role" xml:space="preserve"><value>Role</value></data>
+  <data name="Setup_RoleDriver" xml:space="preserve"><value>Role</value></data>
+  <data name="Setup_BaudRateParity" xml:space="preserve"><value>Baud rate / Parity</value></data>
+  <data name="Setup_MySlaveId" xml:space="preserve"><value>PC's Slave ID</value></data>
+  <data name="Setup_RoleChangeRestartHint" xml:space="preserve"><value>Changing Role (Master/Slave) requires restarting the software to take effect.</value></data>
+  <data name="Setup_SlaveModeHint" xml:space="preserve"><value>Slave mode: the PC passively waits for the PLC (Master) to send read/write commands addressed to the PC's Slave ID above. No active cyclic polling, so Input/Output block configuration is not needed.</value></data>
+  <data name="Setup_RegisterWatchTitle" xml:space="preserve"><value>DATA Monitor</value></data>
+  <data name="Setup_RegisterWatchColAddress" xml:space="preserve"><value>Address</value></data>
+  <data name="Setup_RegisterWatchColCurrentValue" xml:space="preserve"><value>Value</value></data>
+  <data name="Setup_RegisterWatchColDisplayFormat" xml:space="preserve"><value>Display Format</value></data>
+  <data name="Setup_RegisterWatchColDataType" xml:space="preserve"><value>Data Type</value></data>
+  <data name="Setup_RegisterWatchInvalidAddress" xml:space="preserve"><value>Invalid address (must be Dxxxx, without a bit suffix).</value></data>
+  <data name="Setup_RegisterWatchOutOfRange" xml:space="preserve"><value>Address must be within D0-D2000.</value></data>
+  <data name="Setup_RegisterWatchInvalidWriteValue" xml:space="preserve"><value>The entered value is invalid for the selected data type/display format.</value></data>
+  <data name="Setup_BlockStartAddressOutOfRange" xml:space="preserve"><value>The Input/Output Block start address must be within D{0}-D{1} (D0-D99 is always read-only, D100-D199 is always write-only).</value></data>
+
+  <!-- Set Spec tab -->
+  <data name="Setting_HighMode" xml:space="preserve"><value>High mode</value></data>
+  <data name="Setting_LowMode" xml:space="preserve"><value>Low mode</value></data>
+  <data name="Setting_NeedLoginHint" xml:space="preserve"><value>(Operator or Admin login required to edit Set Spec)</value></data>
+  <data name="Setting_TimerSectionTitle" xml:space="preserve"><value>Timer Setting (x0.1s)</value></data>
+  <data name="Setting_TimerNameColumn" xml:space="preserve"><value>Delay Timer</value></data>
+  <data name="Setting_TimerValueColumn" xml:space="preserve"><value>Time (ms)</value></data>
+  <data name="Setting_DelayTimer1" xml:space="preserve"><value>Delay timer 1</value></data>
+  <data name="Setting_DelayTimer2" xml:space="preserve"><value>Delay timer 2</value></data>
+  <data name="Setting_DelayTimer3" xml:space="preserve"><value>Delay timer 3</value></data>
+  <data name="Setting_DelayTimer4" xml:space="preserve"><value>Delay timer 4</value></data>
+  <data name="Setting_DelayTimer5" xml:space="preserve"><value>Delay timer 5</value></data>
+  <data name="Setting_DelayTimer6" xml:space="preserve"><value>Delay timer 6</value></data>
+  <data name="Setting_DelayTimer7" xml:space="preserve"><value>Delay timer 7</value></data>
+  <data name="Setting_DelayTimer8" xml:space="preserve"><value>Delay timer 8</value></data>
+  <data name="Setting_DelayTimer9" xml:space="preserve"><value>Delay timer 9</value></data>
+  <data name="Setting_DelayTimer10" xml:space="preserve"><value>Delay timer 10</value></data>
+  <data name="Setting_ConfirmChanges" xml:space="preserve"><value>CONFIRM CHANGES</value></data>
+  <data name="Setting_ModeTestTitle" xml:space="preserve"><value>MODE TEST</value></data>
+  <data name="Setting_ModeTestHighToLow" xml:space="preserve"><value>High -&gt; Low</value></data>
+  <data name="Setting_ModeTestLowToHigh" xml:space="preserve"><value>Low -&gt; High</value></data>
+  <data name="Setting_ScanRevModeScan" xml:space="preserve"><value>SCAN MODE</value></data>
+  <data name="Setting_ScanRevModeRev" xml:space="preserve"><value>REV MODE</value></data>
+  <data name="Setting_Params" xml:space="preserve"><value>Parameter settings</value></data>
+  <data name="Setting_ScanCodeLength" xml:space="preserve"><value>Scan code length</value></data>
+  <data name="Setting_ScanMode" xml:space="preserve"><value>Scan detection mode</value></data>
+  <data name="Setting_ScanModePrefixStripped" xml:space="preserve"><value>Prefix configured on scanner (stripped from result)</value></data>
+  <data name="Setting_ScanModePrefixKept" xml:space="preserve"><value>Customer-defined prefix (kept in result)</value></data>
+  <data name="Setting_ScanModeFixedLength" xml:space="preserve"><value>Fixed string length</value></data>
+  <data name="Setting_ScanPrefixText" xml:space="preserve"><value>Start character(s)</value></data>
+  <data name="Setting_HighDuration" xml:space="preserve"><value>High mode test duration</value></data>
+  <data name="Setting_LowDuration" xml:space="preserve"><value>Low mode test duration</value></data>
+  <data name="Setting_ButtonHold" xml:space="preserve"><value>Button hold time</value></data>
+  <data name="Setting_SerialRange" xml:space="preserve"><value>Serial start/end position</value></data>
+  <data name="Setting_AllowEditBarcode" xml:space="preserve"><value>Allow barcode edit</value></data>
+  <data name="Setting_RequireScanOrder" xml:space="preserve"><value>Require correct label scan order</value></data>
+  <data name="Setting_CheckDuplicateInLog" xml:space="preserve"><value>Check Duplicate in log</value></data>
+  <data name="Setting_AdminOnlyHint" xml:space="preserve"><value>(Admin only)</value></data>
+  <data name="Setting_SavedAt" xml:space="preserve"><value>Changes saved at {0}</value></data>
+  <data name="Setting_Address" xml:space="preserve"><value>Address</value></data>
+  <data name="Setting_InvalidLimitRange" xml:space="preserve"><value>Lower limit is greater than upper limit for step(s): {0} — cannot confirm.</value></data>
+  <data name="Setting_LimitOutOfRange" xml:space="preserve"><value>Value is outside the allowed register range (-32768..32767) for step(s): {0} — cannot confirm.</value></data>
+  <data name="Setting_CsvExportTitle" xml:space="preserve"><value>CSV RESULT EXPORT</value></data>
+  <data name="Setting_CsvOutputDirectory" xml:space="preserve"><value>Output folder</value></data>
+  <data name="Setting_Browse" xml:space="preserve"><value>Browse...</value></data>
+  <data name="Setting_CsvColumns" xml:space="preserve"><value>Custom data columns (Dxxxx, comma-separated)</value></data>
+  <data name="Setting_CsvColumnsHint" xml:space="preserve"><value>E.g.: D50, D74.2 — or pick from the suggestion list next to it</value></data>
+  <data name="Setting_CsvSuggestionHint" xml:space="preserve"><value>Pick to insert address...</value></data>
+  <data name="Setting_CsvInvalidAddress" xml:space="preserve"><value>Invalid address or not found in spec-register-map.csv: {0}</value></data>
+  <data name="Setting_SaveCsvExportSettings" xml:space="preserve"><value>Save CSV settings</value></data>
+  <data name="Setting_CsvTokenStt" xml:space="preserve"><value>STT (row sequence number)</value></data>
+  <data name="Setting_CsvTokenDate" xml:space="preserve"><value>Date</value></data>
+  <data name="Setting_CsvTokenTime" xml:space="preserve"><value>Time</value></data>
+  <data name="Setting_CsvTokenJob" xml:space="preserve"><value>Job ID</value></data>
+
+  <!-- License window -->
+  <data name="License_Title" xml:space="preserve"><value>License Registration — EOL Tester 705/715</value></data>
+  <data name="License_NotRegistered" xml:space="preserve"><value>This software is not registered on this machine.</value></data>
+  <data name="License_Instruction" xml:space="preserve"><value>Send the "Registration Code" below to your supplier to receive an activation "Key", then paste the Key into the field and click Register.</value></data>
+  <data name="License_RegCodeLabel" xml:space="preserve"><value>Registration Code for this machine:</value></data>
+  <data name="License_RegKeyLabel" xml:space="preserve"><value>Registration Key — paste the code received from your supplier:</value></data>
+  <data name="License_Exit" xml:space="preserve"><value>Exit</value></data>
+  <data name="License_Register" xml:space="preserve"><value>Register</value></data>
+  <data name="License_Success" xml:space="preserve"><value>Registration successful.</value></data>
+  <data name="License_InvalidKey" xml:space="preserve"><value>Invalid key, or it does not match this machine's code. Please check again.</value></data>
+
+  <!-- Common / dynamic status -->
+  <data name="Common_Connected" xml:space="preserve"><value>Connected</value></data>
+  <data name="Common_Connecting" xml:space="preserve"><value>Connecting...</value></data>
+  <data name="Common_ConnectionError" xml:space="preserve"><value>Connection error</value></data>
+  <data name="Common_Disconnected" xml:space="preserve"><value>Disconnected</value></data>
+
+  <!-- Notifications -->
+  <data name="Notify_Login" xml:space="preserve"><value>Login: {0}</value></data>
+  <data name="Notify_Logout" xml:space="preserve"><value>Logout: {0}</value></data>
+  <data name="Notify_ConfirmJob" xml:space="preserve"><value>Job confirmed: {0}</value></data>
+  <data name="Notify_Start" xml:space="preserve"><value>Started (Start) — sent CMD_START signal</value></data>
+  <data name="Notify_Stop" xml:space="preserve"><value>Stopped (Stop) — sent CMD_STOP signal</value></data>
+  <data name="Notify_Reset" xml:space="preserve"><value>Reset — sent CMD_RESET signal</value></data>
+  <data name="Notify_ConfirmNg" xml:space="preserve"><value>NG product confirmed — sent CMD_CONFIRM_NG signal</value></data>
+  <data name="Notify_Scan" xml:space="preserve"><value>Scanned: {0}</value></data>
+  <data name="Notify_CsvWriteFailed" xml:space="preserve"><value>Failed to write CSV result: {0}</value></data>
+  <data name="Notify_ScanLogWriteFailed" xml:space="preserve"><value>Failed to write barcode dedup scanlog: {0}</value></data>
+  <data name="Notify_CsvWriteSkippedEmptyBarcode" xml:space="preserve"><value>Skipped CSV/scanlog write: recorded scan code is empty</value></data>
+  <data name="Notify_ScanRejectedInvalidSerial" xml:space="preserve"><value>Rejected code {0}: could not extract a valid serial number</value></data>
+  <data name="Notify_ScanRejectedOrder" xml:space="preserve"><value>Rejected code {0}: out of sequence (serial {1} is not {2})</value></data>
+  <data name="Notify_ScanRejectedDuplicate" xml:space="preserve"><value>Rejected code {0}: already present in today's results</value></data>
+  <data name="Notify_ScanRejectedSameAsLast" xml:space="preserve"><value>Rejected code {0}: identical to the last recorded scan</value></data>
+  <data name="Notify_ScanPipelineError" xml:space="preserve"><value>Error processing scanned code {0}: {1}</value></data>
+  <data name="Login_Error" xml:space="preserve"><value>Incorrect username or password</value></data>
+</root>

@@ -1,0 +1,35 @@
+# ---- .NET build output ----
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userprefs
+
+# ---- Visual Studio / IDE ----
+.vs/
+.idea/
+
+# ---- App publish output & release archives (không đưa lên git) ----
+/APP/
+/APP*.zip
+/APP*.rar
+*.zip
+*.rar
+
+# ---- Thư mục báo cáo/ảnh kiểm thử UI ----
+/Test/
+
+# ---- Probe/diagnostic tạm (giữ lại PlcReadProbe vì EolTester.slnx tham chiếu) ----
+/tmp/*
+!/tmp/PlcReadProbe/
+/tmp/PlcReadProbe/[Bb]in/
+/tmp/PlcReadProbe/[Oo]bj/
+
+# ---- Claude Code local settings (máy cá nhân) ----
+.claude/settings.local.json
+
+# ---- Runtime data sinh ra khi chạy app ----
+AppData/
+*.db
+*.db-shm
+*.db-wal

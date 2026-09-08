@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Header -->
+  <data name="Header_Title" xml:space="preserve"><value>MÁY KIỂM TRA END-OF-LINE 705/715</value></data>
+  <data name="Header_Tab_Main" xml:space="preserve"><value>Trang Tự Động</value></data>
+  <data name="Header_Tab_Monitor" xml:space="preserve"><value>Giám Sát / Thủ Công</value></data>
+  <data name="Header_Tab_Setup" xml:space="preserve"><value>Cài Đặt / Giới Thiệu</value></data>
+  <data name="Header_Tab_Setting" xml:space="preserve"><value>Set Spec.</value></data>
+  <data name="Header_LoginUserTooltip" xml:space="preserve"><value>Tên đăng nhập</value></data>
+  <data name="Header_LoginPasswordTooltip" xml:space="preserve"><value>Mật khẩu</value></data>
+  <data name="Header_Login" xml:space="preserve"><value>Đăng nhập</value></data>
+  <data name="Header_Logout" xml:space="preserve"><value>Đăng xuất</value></data>
+
+  <!-- Footer -->
+  <data name="Footer_LotInfo" xml:space="preserve"><value>THÔNG TIN LOT</value></data>
+  <data name="Footer_Model" xml:space="preserve"><value>Model:</value></data>
+  <data name="Footer_Date" xml:space="preserve"><value>Ngày:</value></data>
+  <data name="Footer_Job" xml:space="preserve"><value>Job:</value></data>
+  <data name="Footer_JobId" xml:space="preserve"><value>Job ID:</value></data>
+  <data name="Footer_ConfirmJob" xml:space="preserve"><value>XÁC NHẬN JOB</value></data>
+  <data name="Footer_Status" xml:space="preserve"><value>TRẠNG THÁI</value></data>
+  <data name="Footer_CycleTime" xml:space="preserve"><value>Cycle time:</value></data>
+  <data name="Footer_NgStatusNone" xml:space="preserve"><value>Chưa có kết quả</value></data>
+  <data name="Footer_NgStatusOk" xml:space="preserve"><value>Hàng OK</value></data>
+  <data name="Footer_NgStatusNg" xml:space="preserve"><value>Phát hiện hàng NG</value></data>
+  <data name="Footer_ConfirmNg" xml:space="preserve"><value>XÁC NHẬN HÀNG NG</value></data>
+  <data name="Footer_ScanBarcode" xml:space="preserve"><value>SCAN BARCODE</value></data>
+  <data name="Footer_ScanInput" xml:space="preserve"><value>Mã Scan quét được</value></data>
+  <data name="Footer_ScanRecognized" xml:space="preserve"><value>Mã Scan ghi nhận</value></data>
+  <data name="Footer_Operation" xml:space="preserve"><value>OPERATION</value></data>
+  <data name="Footer_Reset" xml:space="preserve"><value>RESET</value></data>
+
+  <!-- Main tab -->
+  <data name="Main_HighMode" xml:space="preserve"><value>High mode</value></data>
+  <data name="Main_LowMode" xml:space="preserve"><value>Low mode</value></data>
+  <data name="Spec_Voltage" xml:space="preserve"><value>Tốc độ động cơ</value></data>
+  <data name="Spec_Current" xml:space="preserve"><value>Dòng điện</value></data>
+  <data name="Spec_Vacuum" xml:space="preserve"><value>Lực hút chân không</value></data>
+  <data name="Spec_Led1Check" xml:space="preserve"><value>Kiểm tra LED 1</value></data>
+  <data name="Spec_Led2Check" xml:space="preserve"><value>Kiểm tra LED 2</value></data>
+  <data name="Main_Description" xml:space="preserve"><value>Mô tả</value></data>
+  <data name="Main_LowerLimit" xml:space="preserve"><value>Giới hạn dưới</value></data>
+  <data name="Main_Value" xml:space="preserve"><value>Giá trị</value></data>
+  <data name="Main_UpperLimit" xml:space="preserve"><value>Giới hạn trên</value></data>
+  <data name="Main_Unit" xml:space="preserve"><value>Đơn vị</value></data>
+  <data name="Main_PlcGain" xml:space="preserve"><value>Hệ số PLC (Gain)</value></data>
+  <data name="Main_SignalIndicator" xml:space="preserve"><value>Chỉ báo tín hiệu</value></data>
+  <data name="Main_NotificationHistory" xml:space="preserve"><value>Lịch sử thông báo / lỗi</value></data>
+  <data name="Main_NotConfigured" xml:space="preserve"><value>chưa cấu hình</value></data>
+  <data name="Main_OkNg" xml:space="preserve"><value>OK / NG</value></data>
+  <data name="Main_ResultHeader" xml:space="preserve"><value>Kết quả</value></data>
+  <data name="Main_LedSignalHeader" xml:space="preserve"><value>TÍN HIỆU LED</value></data>
+  <data name="Main_Led1" xml:space="preserve"><value>LED 1</value></data>
+  <data name="Main_Led2" xml:space="preserve"><value>LED 2</value></data>
+  <data name="Main_Led3" xml:space="preserve"><value>LED 3</value></data>
+  <data name="Main_SensorHeader" xml:space="preserve"><value>SENSOR PHÁT HIỆN SP</value></data>
+  <data name="Main_ProductDetected" xml:space="preserve"><value>Có Sản phẩm</value></data>
+
+  <!-- Monitor tab -->
+  <data name="Monitor_Mode" xml:space="preserve"><value>Chế độ vận hành:</value></data>
+  <data name="Monitor_Auto" xml:space="preserve"><value>TỰ ĐỘNG</value></data>
+  <data name="Monitor_Manual" xml:space="preserve"><value>THỦ CÔNG</value></data>
+  <data name="Monitor_ManualHint" xml:space="preserve"><value>(cần đăng nhập tối thiểu quyền User để đổi chế độ / điều khiển thủ công)</value></data>
+  <data name="Monitor_Input" xml:space="preserve"><value>Ngõ vào (Input)</value></data>
+  <data name="Monitor_Output" xml:space="preserve"><value>Ngõ ra (Output)</value></data>
+  <data name="Monitor_Point" xml:space="preserve"><value>Điểm</value></data>
+  <data name="Monitor_Label" xml:space="preserve"><value>Nhãn</value></data>
+  <data name="Monitor_ManualControl" xml:space="preserve"><value>Điều khiển thủ công</value></data>
+  <data name="Monitor_ImportLabel" xml:space="preserve"><value>IMPORT LABEL</value></data>
+  <data name="Monitor_ExportLabel" xml:space="preserve"><value>EXPORT LABEL</value></data>
+  <data name="Monitor_AdminOnlyHint" xml:space="preserve"><value>(cần quyền Admin để Import/Export nhãn)</value></data>
+  <data name="Monitor_ImportSuccess" xml:space="preserve"><value>Đã nhập {0} điểm I/O từ file CSV.</value></data>
+  <data name="Monitor_ImportBlocked" xml:space="preserve"><value>Không thể nhập — file CSV có {0} lỗi. Vui lòng sửa và thử lại:
+{1}</value></data>
+  <data name="Monitor_ExportSuccess" xml:space="preserve"><value>Đã xuất {0} điểm I/O ra file CSV.</value></data>
+  <data name="Monitor_CsvFilter" xml:space="preserve"><value>Tệp CSV (*.csv)|*.csv</value></data>
+  <data name="Monitor_CsvErrorRow" xml:space="preserve"><value>Dòng {0}: {1}</value></data>
+  <data name="Monitor_UnexpectedError" xml:space="preserve"><value>Đã xảy ra lỗi: {0}</value></data>
+  <data name="Monitor_CsvMissingAddress" xml:space="preserve"><value>Thiếu địa chỉ bit trạng thái</value></data>
+  <data name="Monitor_CsvMissingKey" xml:space="preserve"><value>Thiếu Text mục điểm</value></data>
+  <data name="Monitor_CsvMissingLabel1" xml:space="preserve"><value>Thiếu Nhãn ngôn ngữ 1 (bắt buộc)</value></data>
+  <data name="Monitor_CsvUnknownDirection" xml:space="preserve"><value>Không xác định được hướng I/O từ "{0}" (phải bắt đầu bằng X hoặc Y)</value></data>
+  <data name="Monitor_CsvMissingLabel2" xml:space="preserve"><value>Thiếu Nhãn ngôn ngữ 2 — sẽ dùng Nhãn ngôn ngữ 1 khi hiển thị</value></data>
+  <data name="Monitor_CsvMissingLabel3" xml:space="preserve"><value>Thiếu Nhãn ngôn ngữ 3 — sẽ dùng Nhãn ngôn ngữ 1 khi hiển thị</value></data>
+  <data name="Monitor_CsvCommandOrHandoverOnInput" xml:space="preserve"><value>Điểm Input "{0}" có CommandAddress/HandoverAddress — bỏ qua 2 cột này vì chỉ có ý nghĩa với Output</value></data>
+
+  <!-- Setup tab -->
+  <data name="Setup_Title" xml:space="preserve"><value>Cấu hình kết nối PLC</value></data>
+  <data name="Setup_AdminHint" xml:space="preserve"><value>(cần đăng nhập quyền Admin để chỉnh sửa)</value></data>
+  <data name="Setup_Protocol" xml:space="preserve"><value>Giao thức</value></data>
+  <data name="Setup_ComPort" xml:space="preserve"><value>Cổng COM</value></data>
+  <data name="Setup_BaudRate" xml:space="preserve"><value>Baud rate</value></data>
+  <data name="Setup_Parity" xml:space="preserve"><value>Parity</value></data>
+  <data name="Setup_DataStopBits" xml:space="preserve"><value>Data bits / Stop bits</value></data>
+  <data name="Setup_StationAddress" xml:space="preserve"><value>Địa chỉ trạm (Slave ID)</value></data>
+  <data name="Setup_PollingInterval" xml:space="preserve"><value>Chu kỳ polling (ms)</value></data>
+  <data name="Setup_TimeoutRetry" xml:space="preserve"><value>Timeout / Retry</value></data>
+  <data name="Setup_Ms" xml:space="preserve"><value>ms /</value></data>
+  <data name="Setup_Times" xml:space="preserve"><value>lần</value></data>
+  <data name="Setup_SaveConfig" xml:space="preserve"><value>Lưu cấu hình</value></data>
+  <data name="Setup_SaveSuccess" xml:space="preserve"><value>Đã lưu cấu hình lúc {0}.</value></data>
+  <data name="Setup_TestConnection" xml:space="preserve"><value>Test Connection</value></data>
+  <data name="Setup_TestResultReal" xml:space="preserve"><value>Kết nối thử ({0}, {1}) thành công lúc {2} — đọc được giá trị thật từ PLC: {3}</value></data>
+  <data name="Setup_TestResultError" xml:space="preserve"><value>Kết nối thử thất bại: {0}</value></data>
+  <data name="Setup_ProtocolLockedHint" xml:space="preserve"><value>Đổi Chuẩn truyền thông cần khởi động lại phần mềm để có hiệu lực</value></data>
+  <data name="Setup_IpAddress" xml:space="preserve"><value>Địa chỉ IP</value></data>
+  <data name="Setup_Port" xml:space="preserve"><value>Port</value></data>
+  <data name="Setup_McFrameFormat" xml:space="preserve"><value>Khung dữ liệu</value></data>
+  <data name="Setup_RefreshPorts" xml:space="preserve"><value>Làm mới</value></data>
+  <data name="Setup_RegisterBlockTitle" xml:space="preserve"><value>Khối thanh ghi đọc/ghi (PC làm Master, PLC làm Slave)</value></data>
+  <data name="Setup_RegisterBlockHint" xml:space="preserve"><value>Mỗi chu kỳ polling, PC đọc 1 lần toàn bộ khối Input và ghi 1 lần toàn bộ khối Output. Địa chỉ nhập dạng số (VD 1000 = D1000).</value></data>
+  <data name="Setup_InputBlock" xml:space="preserve"><value>Khối Input</value></data>
+  <data name="Setup_OutputBlock" xml:space="preserve"><value>Khối Output</value></data>
+  <data name="Setup_RegisterCount" xml:space="preserve"><value>Số lượng thanh ghi</value></data>
+  <data name="Setup_RegisterCountWarning" xml:space="preserve"><value>{0} thanh ghi vượt giới hạn {1} thanh ghi/lần đọc-ghi của Modbus RTU — sẽ cần khoảng {2} request nối tiếp mỗi chu kỳ, có thể làm chậm cycle time.</value></data>
+  <data name="Setup_Role" xml:space="preserve"><value>Vai trò</value></data>
+  <data name="Setup_RoleDriver" xml:space="preserve"><value>Vai trò</value></data>
+  <data name="Setup_BaudRateParity" xml:space="preserve"><value>Baud rate / Parity</value></data>
+  <data name="Setup_MySlaveId" xml:space="preserve"><value>Slave ID của PC</value></data>
+  <data name="Setup_RoleChangeRestartHint" xml:space="preserve"><value>Đổi Vai trò (Master/Slave) cần khởi động lại phần mềm để có hiệu lực.</value></data>
+  <data name="Setup_SlaveModeHint" xml:space="preserve"><value>Chế độ Slave: PC bị động chờ PLC (Master) gửi lệnh đọc/ghi theo đúng Slave ID của PC ở trên. Không polling chủ động theo chu kỳ nên không cần cấu hình khối Input/Output.</value></data>
+  <data name="Setup_RegisterWatchTitle" xml:space="preserve"><value>Giám sát DATA</value></data>
+  <data name="Setup_RegisterWatchColAddress" xml:space="preserve"><value>Địa chỉ</value></data>
+  <data name="Setup_RegisterWatchColCurrentValue" xml:space="preserve"><value>Giá trị</value></data>
+  <data name="Setup_RegisterWatchColDisplayFormat" xml:space="preserve"><value>Định dạng</value></data>
+  <data name="Setup_RegisterWatchColDataType" xml:space="preserve"><value>Kiểu dữ liệu</value></data>
+  <data name="Setup_RegisterWatchInvalidAddress" xml:space="preserve"><value>Địa chỉ không hợp lệ (phải dạng Dxxxx, không kèm bit).</value></data>
+  <data name="Setup_RegisterWatchOutOfRange" xml:space="preserve"><value>Địa chỉ phải nằm trong khoảng D0-D2000.</value></data>
+  <data name="Setup_RegisterWatchInvalidWriteValue" xml:space="preserve"><value>Giá trị nhập không hợp lệ theo kiểu dữ liệu/định dạng đã chọn.</value></data>
+  <data name="Setup_BlockStartAddressOutOfRange" xml:space="preserve"><value>Địa chỉ bắt đầu của Khối Input/Output phải trong khoảng D{0}-D{1} (D0-D99 luôn chỉ-đọc, D100-D199 luôn chỉ-ghi).</value></data>
+
+  <!-- Set Spec tab -->
+  <data name="Setting_HighMode" xml:space="preserve"><value>High mode</value></data>
+  <data name="Setting_LowMode" xml:space="preserve"><value>Low mode</value></data>
+  <data name="Setting_NeedLoginHint" xml:space="preserve"><value>(cần đăng nhập — Operator hoặc Admin — để chỉnh sửa Set Spec)</value></data>
+  <data name="Setting_TimerSectionTitle" xml:space="preserve"><value>Cài đặt thời gian (x0.1s)</value></data>
+  <data name="Setting_TimerNameColumn" xml:space="preserve"><value>Thời gian Delay</value></data>
+  <data name="Setting_TimerValueColumn" xml:space="preserve"><value>Thời gian</value></data>
+  <data name="Setting_DelayTimer1" xml:space="preserve"><value>Thời gian trễ 1</value></data>
+  <data name="Setting_DelayTimer2" xml:space="preserve"><value>Thời gian trễ 2</value></data>
+  <data name="Setting_DelayTimer3" xml:space="preserve"><value>Thời gian trễ 3</value></data>
+  <data name="Setting_DelayTimer4" xml:space="preserve"><value>Thời gian trễ 4</value></data>
+  <data name="Setting_DelayTimer5" xml:space="preserve"><value>Thời gian trễ 5</value></data>
+  <data name="Setting_DelayTimer6" xml:space="preserve"><value>Thời gian trễ 6</value></data>
+  <data name="Setting_DelayTimer7" xml:space="preserve"><value>Thời gian trễ 7</value></data>
+  <data name="Setting_DelayTimer8" xml:space="preserve"><value>Thời gian trễ 8</value></data>
+  <data name="Setting_DelayTimer9" xml:space="preserve"><value>Thời gian trễ 9</value></data>
+  <data name="Setting_DelayTimer10" xml:space="preserve"><value>Thời gian trễ 10</value></data>
+  <data name="Setting_ConfirmChanges" xml:space="preserve"><value>XÁC NHẬN THAY ĐỔI</value></data>
+  <data name="Setting_ModeTestTitle" xml:space="preserve"><value>MODE TEST</value></data>
+  <data name="Setting_ModeTestHighToLow" xml:space="preserve"><value>High -&gt; Low</value></data>
+  <data name="Setting_ModeTestLowToHigh" xml:space="preserve"><value>Low -&gt; High</value></data>
+  <data name="Setting_ScanRevModeScan" xml:space="preserve"><value>SCAN MODE</value></data>
+  <data name="Setting_ScanRevModeRev" xml:space="preserve"><value>REV MODE</value></data>
+  <data name="Setting_Params" xml:space="preserve"><value>Cài đặt tham số</value></data>
+  <data name="Setting_ScanCodeLength" xml:space="preserve"><value>Độ dài mã scan</value></data>
+  <data name="Setting_ScanMode" xml:space="preserve"><value>Chế độ nhận diện mã quét</value></data>
+  <data name="Setting_ScanModePrefixStripped" xml:space="preserve"><value>Ký tự bắt đầu do đầu đọc cài đặt (loại bỏ khỏi kết quả)</value></data>
+  <data name="Setting_ScanModePrefixKept" xml:space="preserve"><value>Cụm ký tự bắt đầu do khách hàng chỉ định (giữ lại trong kết quả)</value></data>
+  <data name="Setting_ScanModeFixedLength" xml:space="preserve"><value>Theo độ dài chuỗi cố định</value></data>
+  <data name="Setting_ScanPrefixText" xml:space="preserve"><value>Ký tự/cụm ký tự bắt đầu</value></data>
+  <data name="Setting_HighDuration" xml:space="preserve"><value>Thời gian test High</value></data>
+  <data name="Setting_LowDuration" xml:space="preserve"><value>Thời gian test Low</value></data>
+  <data name="Setting_ButtonHold" xml:space="preserve"><value>Thời gian giữ nút</value></data>
+  <data name="Setting_SerialRange" xml:space="preserve"><value>Vị trí bắt đầu/kết thúc serial</value></data>
+  <data name="Setting_AllowEditBarcode" xml:space="preserve"><value>Cho phép sửa Barcode</value></data>
+  <data name="Setting_RequireScanOrder" xml:space="preserve"><value>Bắt buộc đúng thứ tự tem</value></data>
+  <data name="Setting_CheckDuplicateInLog" xml:space="preserve"><value>Check Duplicate in log</value></data>
+  <data name="Setting_AdminOnlyHint" xml:space="preserve"><value>(chỉ Admin được bật/tắt)</value></data>
+  <data name="Setting_SavedAt" xml:space="preserve"><value>Đã lưu thay đổi lúc {0}</value></data>
+  <data name="Setting_Address" xml:space="preserve"><value>Địa chỉ</value></data>
+  <data name="Setting_InvalidLimitRange" xml:space="preserve"><value>Giới hạn dưới lớn hơn giới hạn trên ở bước: {0} — không thể xác nhận.</value></data>
+  <data name="Setting_LimitOutOfRange" xml:space="preserve"><value>Giá trị nằm ngoài dải thanh ghi cho phép (-32768..32767) ở bước: {0} — không thể xác nhận.</value></data>
+  <data name="Setting_CsvExportTitle" xml:space="preserve"><value>XUẤT FILE CSV KẾT QUẢ</value></data>
+  <data name="Setting_CsvOutputDirectory" xml:space="preserve"><value>Thư mục lưu</value></data>
+  <data name="Setting_Browse" xml:space="preserve"><value>Duyệt...</value></data>
+  <data name="Setting_CsvColumns" xml:space="preserve"><value>Cột dữ liệu tùy chỉnh (Dxxxx, cách nhau bằng dấu phẩy)</value></data>
+  <data name="Setting_CsvColumnsHint" xml:space="preserve"><value>VD: D50, D74.2 — hoặc chọn từ danh sách gợi ý bên cạnh</value></data>
+  <data name="Setting_CsvSuggestionHint" xml:space="preserve"><value>Chọn để chèn địa chỉ...</value></data>
+  <data name="Setting_CsvInvalidAddress" xml:space="preserve"><value>Địa chỉ không hợp lệ hoặc không có trong spec-register-map.csv: {0}</value></data>
+  <data name="Setting_SaveCsvExportSettings" xml:space="preserve"><value>Lưu cấu hình CSV</value></data>
+  <data name="Setting_CsvTokenStt" xml:space="preserve"><value>STT (số thứ tự dòng)</value></data>
+  <data name="Setting_CsvTokenDate" xml:space="preserve"><value>Ngày (Date)</value></data>
+  <data name="Setting_CsvTokenTime" xml:space="preserve"><value>Giờ (Time)</value></data>
+  <data name="Setting_CsvTokenJob" xml:space="preserve"><value>Job ID</value></data>
+
+  <!-- License window -->
+  <data name="License_Title" xml:space="preserve"><value>Đăng ký bản quyền — EOL Tester 705/715</value></data>
+  <data name="License_NotRegistered" xml:space="preserve"><value>Phần mềm chưa được đăng ký trên máy này.</value></data>
+  <data name="License_Instruction" xml:space="preserve"><value>Gửi "Mã đăng ký" bên dưới cho nhà cung cấp để nhận "Mã Key" kích hoạt, sau đó dán Key vào ô tương ứng và bấm Đăng ký.</value></data>
+  <data name="License_RegCodeLabel" xml:space="preserve"><value>Mã đăng ký (Registration Code) của máy này:</value></data>
+  <data name="License_RegKeyLabel" xml:space="preserve"><value>Mã Key (Registration Key) — dán mã nhận được từ nhà cung cấp:</value></data>
+  <data name="License_Exit" xml:space="preserve"><value>Thoát</value></data>
+  <data name="License_Register" xml:space="preserve"><value>Đăng ký</value></data>
+  <data name="License_Success" xml:space="preserve"><value>Đăng ký thành công.</value></data>
+  <data name="License_InvalidKey" xml:space="preserve"><value>Mã Key không hợp lệ hoặc không khớp với mã máy này. Vui lòng kiểm tra lại.</value></data>
+
+  <!-- Common / dynamic status -->
+  <data name="Common_Connected" xml:space="preserve"><value>Đã kết nối</value></data>
+  <data name="Common_Connecting" xml:space="preserve"><value>Đang kết nối...</value></data>
+  <data name="Common_ConnectionError" xml:space="preserve"><value>Lỗi kết nối</value></data>
+  <data name="Common_Disconnected" xml:space="preserve"><value>Chưa kết nối</value></data>
+
+  <!-- Notifications -->
+  <data name="Notify_Login" xml:space="preserve"><value>Đăng nhập: {0}</value></data>
+  <data name="Notify_Logout" xml:space="preserve"><value>Đăng xuất: {0}</value></data>
+  <data name="Notify_ConfirmJob" xml:space="preserve"><value>Xác nhận Job: {0}</value></data>
+  <data name="Notify_Start" xml:space="preserve"><value>Bắt đầu chạy (Start) — đã gửi tín hiệu CMD_START</value></data>
+  <data name="Notify_Stop" xml:space="preserve"><value>Dừng (Stop) — đã gửi tín hiệu CMD_STOP</value></data>
+  <data name="Notify_Reset" xml:space="preserve"><value>Reset — đã gửi tín hiệu CMD_RESET</value></data>
+  <data name="Notify_ConfirmNg" xml:space="preserve"><value>Xác nhận sản phẩm lỗi — đã gửi tín hiệu CMD_CONFIRM_NG</value></data>
+  <data name="Notify_Scan" xml:space="preserve"><value>Quét mã: {0}</value></data>
+  <data name="Notify_CsvWriteFailed" xml:space="preserve"><value>Ghi CSV kết quả thất bại: {0}</value></data>
+  <data name="Notify_ScanLogWriteFailed" xml:space="preserve"><value>Ghi scanlog chống trùng barcode thất bại: {0}</value></data>
+  <data name="Notify_CsvWriteSkippedEmptyBarcode" xml:space="preserve"><value>Bỏ qua ghi CSV/scanlog: Mã Scan ghi nhận đang rỗng</value></data>
+  <data name="Notify_ScanRejectedInvalidSerial" xml:space="preserve"><value>Từ chối mã {0}: không trích xuất được số thứ tự hợp lệ</value></data>
+  <data name="Notify_ScanRejectedOrder" xml:space="preserve"><value>Từ chối mã {0}: sai thứ tự (số thứ tự {1} không phải {2})</value></data>
+  <data name="Notify_ScanRejectedDuplicate" xml:space="preserve"><value>Từ chối mã {0}: đã có trong kết quả hôm nay</value></data>
+  <data name="Notify_ScanRejectedSameAsLast" xml:space="preserve"><value>Từ chối mã {0}: trùng với mã Scan ghi nhận gần nhất</value></data>
+  <data name="Notify_ScanPipelineError" xml:space="preserve"><value>Lỗi xử lý mã quét {0}: {1}</value></data>
+  <data name="Login_Error" xml:space="preserve"><value>Sai tên đăng nhập hoặc mật khẩu</value></data>
+</root>

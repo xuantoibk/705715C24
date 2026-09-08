@@ -1,0 +1,4 @@
+UserName,Role,Password
+admin,Admin,admin123
+operator,Operator,operator123
+user,User,user123

@@ -1,0 +1,145 @@
+<UserControl x:Class="EolTester.App.Views.MonitorTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:EolTester.App.Converters"
+             xmlns:loc="clr-namespace:EolTester.App.Localization"
+             xmlns:b="clr-namespace:EolTester.App.Behaviors"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1400">
+    <UserControl.Resources>
+        <conv:EnumEqualsToBrushConverter x:Key="ModeToBrush"/>
+        <conv:BoolEqualsToBrushConverter x:Key="IsOnToBrush" CompareTo="True"/>
+        <conv:BoolEqualsToBrushConverter x:Key="IsOffToBrush" CompareTo="False"/>
+        <conv:BoolToVisibilityConverter x:Key="InverseBoolToVis" Invert="True"/>
+
+        <Style x:Key="MonitorCellStyle" TargetType="DataGridCell">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+        <Style x:Key="PointCellStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="4,0"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Value}" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="LimeGreen"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Mỗi cột Input là 1 DataGrid con độc lập ≤16 dòng — nhiều cột wrap ngang khi số điểm > 16 -->
+        <DataTemplate x:Key="InputColumnTemplate">
+            <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column"
+                      CanUserAddRows="False" CanUserResizeColumns="False" RowHeight="25" ColumnHeaderHeight="26" GridLinesVisibility="Horizontal"
+                      CellStyle="{StaticResource MonitorCellStyle}" VerticalAlignment="Top" Margin="0,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{loc:Tr Monitor_Point}" Binding="{Binding Key}" Width="48" ElementStyle="{StaticResource PointCellStyle}"/>
+                    <DataGridTextColumn Header="{loc:Tr Monitor_Label}" Binding="{Binding DisplayLabel}" Width="223"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+
+        <!-- Mỗi cột Output tương tự, cộng thêm điều khiển ON/OFF thủ công -->
+        <DataTemplate x:Key="OutputColumnTemplate">
+            <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column"
+                      CanUserAddRows="False" CanUserResizeColumns="False" RowHeight="25" ColumnHeaderHeight="26" GridLinesVisibility="Horizontal"
+                      CellStyle="{StaticResource MonitorCellStyle}" VerticalAlignment="Top" Margin="0,0,10,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{loc:Tr Monitor_Point}" Binding="{Binding Key}" Width="42" ElementStyle="{StaticResource PointCellStyle}"/>
+                    <DataGridTextColumn Header="{loc:Tr Monitor_Label}" Binding="{Binding DisplayLabel}" Width="193"/>
+                    <DataGridTemplateColumn Header="{loc:Tr Monitor_ManualControl}" Width="150">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="2,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="45*"/>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="45*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Content="ON" HorizontalAlignment="Stretch"
+                                            Command="{Binding DataContext.TurnOnCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
+                                            IsEnabled="{Binding DataContext.CanUseManualControls, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            Background="{Binding CommandValue, Converter={StaticResource IsOnToBrush}}"/>
+                                    <Button Grid.Column="2" Content="OFF" HorizontalAlignment="Stretch"
+                                            Command="{Binding DataContext.TurnOffCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
+                                            IsEnabled="{Binding DataContext.CanUseManualControls, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            Background="{Binding CommandValue, Converter={StaticResource IsOffToBrush}}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Margin="4,4,4,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <TextBlock Text="{loc:Tr Monitor_Mode}" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,12,0"/>
+                <Button Content="{loc:Tr Monitor_Auto}" Padding="12,5" Margin="0,0,4,0" FontWeight="Bold"
+                        Command="{Binding SetModeCommand}" CommandParameter="Auto" IsEnabled="{Binding CanSendCommands}"
+                        Background="{Binding Mode, Converter={StaticResource ModeToBrush}, ConverterParameter=Auto}"/>
+                <Button Content="{loc:Tr Monitor_Manual}" Padding="12,5" Margin="0,0,12,0" FontWeight="Bold"
+                        Command="{Binding SetModeCommand}" CommandParameter="Manual" IsEnabled="{Binding CanSendCommands}"
+                        Background="{Binding Mode, Converter={StaticResource ModeToBrush}, ConverterParameter=Manual}"/>
+                <TextBlock Text="{loc:Tr Monitor_ManualHint}" VerticalAlignment="Center" Foreground="Gray"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{loc:Tr Monitor_AdminOnlyHint}" VerticalAlignment="Center" Foreground="Gray" Margin="0,0,8,0"
+                           Visibility="{Binding IsAdmin, Converter={StaticResource InverseBoolToVis}}"/>
+                <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap" VerticalAlignment="Center" MaxWidth="320" Margin="0,0,10,0">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="DarkGreen"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding StatusMessageIsError}" Value="True">
+                                    <Setter Property="Foreground" Value="DarkRed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <Button Content="{loc:Tr Monitor_ImportLabel}" Command="{Binding ImportLabelCommand}" Padding="10,5" Margin="0,0,6,0" IsEnabled="{Binding IsAdmin}"/>
+                <Button Content="{loc:Tr Monitor_ExportLabel}" Command="{Binding ExportLabelCommand}" Padding="10,5" IsEnabled="{Binding IsAdmin}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Input + Output nằm chung 1 dòng cuộn ngang duy nhất, mỗi bên tự chiếm đúng bề rộng theo nội dung thực tế
+             (không chia cứng 50/50) — tránh vừa hụt bề rộng bên Output (gây cuộn + che dòng cuối) vừa dư khoảng trống bên Input. -->
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Horizontal" Margin="4">
+                <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                    <TextBlock Text="{loc:Tr Monitor_Input}" FontWeight="Bold" Margin="0,0,0,4"/>
+                    <ItemsControl ItemsSource="{Binding InputColumns}" ItemTemplate="{StaticResource InputColumnTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{loc:Tr Monitor_Output}" FontWeight="Bold" Margin="0,0,0,4"/>
+                    <ItemsControl ItemsSource="{Binding OutputColumns}" ItemTemplate="{StaticResource OutputColumnTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
