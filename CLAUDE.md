@@ -108,18 +108,35 @@ Khi triển khai từng màn hình tương ứng, cần đối chiếu lại cá
 - Cấu hình có versioning + export/import theo từng model sản phẩm, để khi đổi "Model" ở thông tin Lot có thể nạp cả bộ profile spec/I-O thay vì nhập tay lại từ đầu.
 
 ## 4. Công nghệ đã chốt cho dự án này
+- **Kiến trúc đa máy (2026-09-15)**: dự án này (`705715_C24`) là 1 trong N "app đầu" dùng chung 1 lõi — xem
+  `D:\claude\Day1-PLC CONNECT RS485-MC\EolTester.Platform` (repo riêng, có CLAUDE.md mô tả đầy đủ "hợp đồng"
+  giữa lõi và app đầu — ĐỌC FILE ĐÓ trước khi sửa bất kỳ tính năng nào tưởng là dùng chung). Repo này chỉ còn
+  giữ phần ĐẶC THÙ máy này: `MainTabView`/`MainTabViewModel` (bảng "Kiểm tra khác" — mmtDir/MMT Quay),
+  `SettingTabView`/`SettingTabViewModel` (compose `OperationalSettingsViewModel`/`CsvExportSettingsViewModel`
+  dùng chung), `Eol705715C24SpecProfileSeeder`, `App.xaml(.cs)`, `LicenseWindow`,
+  `SingleInstanceWarningWindow`, `Assets/`, `SeedData/`. Trước lần tách này, máy này là 1 bản copy-sửa tay từ
+  máy 705/715 đã lệch nhau — nhờ tách lõi, máy này vừa nhận lại các tính năng/bug-fix đã có ở máy kia mà trước
+  đây thiếu (SCAN MODE/REV MODE, kiểm tra độ dài mã scan, "Khớp phần text cố định quanh serial", quét nền qua
+  Raw Input) mà không cần tự code lại — xem chi tiết đầy đủ ở `705715_C25\docs\session-log\history.md` mục
+  50-51 (lịch sử tách nằm bên máy đó vì công việc bắt đầu từ đó, trước khi repo `EolTester.Platform` tồn tại).
+  **Sửa 1 tính năng dùng chung → sửa trong `EolTester.Platform`, `pack.ps1`, bump version, rồi cập nhật
+  `Version` trong `EolTester.App.csproj`/`tmp/PlcReadProbe/PlcReadProbe.csproj` của TỪNG app đầu và
+  `dotnet restore` lại.**
 - **IDE**: Visual Studio Community 2026 (v18.7, đã cài sẵn trên máy).
 - **Runtime**: .NET 10 (LTS, đã cài sẵn — SDK 10.0.301). Không dùng .NET 8 hay .NET Framework — .NET 10 có thời gian hỗ trợ dài hơn (đến khoảng tháng 11/2028), quan trọng với phần mềm thiết bị công nghiệp có vòng đời sử dụng dài.
 - **UI**: WPF, MVVM nghiêm ngặt (CommunityToolkit.Mvvm cho `ObservableObject` / `RelayCommand` / messaging). Không viết logic nghiệp vụ trong code-behind — View chỉ bind tới ViewModel. Chạy dạng cửa sổ thường (có minimize/close), không phải kiosk toàn màn hình.
 - **Đa ngôn ngữ**: giao diện hỗ trợ **Việt + Anh**, chuyển đổi ngay lúc chạy (không cần khởi động lại), toàn bộ chuỗi hiển thị đưa vào `.resx`. **Đã cài đặt thật (không còn là mục tiêu)** — xem mục 9b để biết kiến trúc cụ thể (`Translation`, `TrExtension`, `ILanguageService`).
 - **DI/Hosting**: `Microsoft.Extensions.Hosting` + `Microsoft.Extensions.DependencyInjection` làm composition root; `Microsoft.Extensions.Logging` + Serilog (ghi ra file) cho log có cấu trúc, tách biệt khỏi ô lịch sử thông báo hiển thị trên UI.
 - **Giao tiếp PLC (hiện tại)**: Modbus RTU qua RS485 (`System.IO.Ports.SerialPort` + thư viện Modbus RTU, ví dụ NModbus), được bọc sau một lớp trừu tượng độc lập giao thức — xem mục 6. Phần mềm không được phép gắn chặt vào riêng Modbus RTU. **`ModbusRtuDriver` (real, mở cổng COM thật) là driver DUY NHẤT** khi Role=Master — đã bỏ hẳn `MockModbusDriver`/driver giả lập (từng dùng để dev/demo không cần phần cứng, nhưng bị đánh giá là rủi ro vận hành thật: nếu ai đó vô tình để chế độ giả lập trên máy sản xuất thật, app sẽ báo "Đã kết nối" và hiện dữ liệu giả mà không có PLC thật nào phía sau). Không còn khái niệm build Debug/Release khác hành vi kết nối — mọi build đều bắt buộc kết nối PLC thật để hiển thị "Đã kết nối"/dữ liệu đo lường. `PlcPollingService.GenerateDemoMeasurement` (dữ liệu đo lường giả cho bước Set Spec chưa gán Address) vẫn còn, nhưng **chỉ bật ở build Debug** (`#if DEBUG`) và không thể bật lại qua UI — Release luôn trả về 0 cố định, không phải rủi ro vận hành runtime-switchable như Mock driver cũ.
-- **Máy quét mã vạch/QR**: kết nối kiểu USB "bàn phím ảo" (keyboard wedge) — dữ liệu quét được gõ thẳng vào control đang có keyboard focus như bàn phím thật, không cần driver/cổng COM riêng cho scanner. `KeyboardWedgeScanCapture` hook `PreviewTextInput`/`PreviewKeyDown` ở cấp Window **nhưng CHỈ can thiệp khi ô "Mã Scan quét được" (`ScanInputBox`) đang có keyboard focus** — trước đây bắt toàn cục không phụ thuộc focus, gây bug thật: ở SCAN MODE khi máy chưa sẵn sàng thì nuốt MỌI ký tự gõ vào bất kỳ ô nào (login/Job/Setup...), không gõ được gì. Đánh đổi đã thống nhất: quét khi focus ở ô khác có thể để lọt ký tự vào ô đó (FixedLength có thể thừa 1 ký tự → quét lại). Hỗ trợ 3 kiểu nhận diện điểm bắt đầu/kết thúc — xem mục 7 Tab 1 "Scan Barcode".
+- **Máy quét mã vạch/QR**: kết nối kiểu USB "bàn phím ảo" (keyboard wedge) — dữ liệu quét được gõ thẳng vào control đang có keyboard focus như bàn phím thật, không cần driver/cổng COM riêng cho scanner. `KeyboardWedgeScanCapture` (dùng chung, `EolTester.Platform.Wpf`) hook `PreviewTextInput`/`PreviewKeyDown` ở cấp Window, **bắt phím TOÀN CỤC — không phụ thuộc con trỏ đang ở ô nào** (từ 2026-09-15, sau khi tách lõi dùng chung với máy 705/715 — trước đó máy này chỉ bắt khi ô "Mã Scan quét được" có focus). "Máy chưa sẵn sàng" không còn chặn ở tầng gõ phím (từng gây bug "không gõ được gì" khi SCAN MODE + máy chưa sẵn sàng) — dời xuống `ShellViewModel.CommitScanAsync`. Hỗ trợ 3 kiểu nhận diện điểm bắt đầu/kết thúc, có thêm kênh Raw Input để quét được cả khi cửa sổ không active (opt-in, xem `EolTester.Platform` CLAUDE.md) — xem mục 7 Tab 1 "Scan Barcode" của máy 705/715 (`705715_C25\CLAUDE.md`) để có mô tả đầy đủ nhất, vì tính năng này 100% dùng chung.
 - **Lưu trữ**: file JSON cho cấu hình spec / bản đồ I/O / kết nối (dễ đọc/sửa tay khi bảo trì tại hiện trường); SQLite (`Microsoft.Data.Sqlite`) cho audit log và lịch sử kết quả/NG khi cần truy vấn nhiều.
 - **Xuất dữ liệu**: giai đoạn hiện tại chỉ cần **xuất file CSV** kết quả kiểm tra (cấu trúc cột cụ thể sẽ chốt sau). Tích hợp trực tiếp với MES/ERP thực tế của nhà máy là **tính năng option, để dành cho giai đoạn nâng cấp sau** — chỉ cần thiết kế tầng `Data`/export theo interface (`IResultExporter` hay tương tự) để sau này thêm một implementation mới (gọi API MES) mà không phải sửa lại logic ghi kết quả, không code phần tích hợp MES cụ thể ngay bây giờ.
 
 ### Lệnh thường dùng (build / test / run / publish)
 Không có file `.sln` — dùng `EolTester.slnx` (solution file định dạng mới, `dotnet` CLI đọc trực tiếp) ở thư mục gốc repo.
+`nuget.config` trỏ thêm feed local `D:\claude\Day1-PLC CONNECT RS485-MC\NugetLocalFeed` (lõi dùng chung — xem
+ghi chú "Kiến trúc đa máy" ở đầu mục 4). Test lõi dùng chung đã chuyển sang
+`EolTester.Platform\EolTester.Platform.slnx`, KHÔNG còn trong solution này.
 
 ```powershell
 # Build toàn bộ solution (Debug)
@@ -146,17 +163,27 @@ dotnet publish src/EolTester.App/EolTester.App.csproj -c Release -r win-x64 --se
 - `test-rs485.ps1` ở thư mục gốc là script tiện ích build + chạy riêng `EolTester.Communication.Tests` (`.\test-rs485.ps1 [-Config Debug|Release] [-Verbose]`), có in tóm tắt tên các bộ test — **danh sách tên test trong script là text cố định viết tay, không phải kết quả tự dò**, nên vẫn còn nhắc tới `MockModbusDriverTests` dù driver này đã bị gỡ bỏ (xem mục 4); đừng dựa vào output đó để biết bộ test hiện có, chỉ dùng script này như một cách chạy nhanh `dotnet test` đã build sẵn.
 
 ## 5. Cấu trúc solution
+**Lõi dùng chung (Core/Communication/Configuration/Data/Security + Platform.Wpf) KHÔNG còn nằm trong repo này**
+— xem `D:\claude\Day1-PLC CONNECT RS485-MC\EolTester.Platform` (repo riêng, CLAUDE.md riêng). Repo này chỉ còn:
 ```
 /src
-  EolTester.App                Ứng dụng WPF: Views, ViewModels, App.xaml, composition root (DI), Localization/ (Translation, TrExtension — xem mục 10), Resources/ (Strings.resx, Strings.en-US.resx), Interop/ (WindowAspectRatioLock — xem mục 12), Behaviors/ (KeyboardWedgeScanCapture — bắt phím cho đầu đọc barcode khi ô Scan có focus, MomentaryButton — xem mục 7 Tab 1/Tab 2), Services/AppPaths (thư mục cấu hình/log cạnh exe + fallback %LocalAppData% — xem mục 12b), SingleInstanceWarningWindow (chặn mở app 2 lần — xem mục 9), Services/CsvResultExportService (ghi CSV kết quả theo ngày — xem mục 7 Tab 4)
-  EolTester.Core                 Model & interface thuần domain (TestStepDefinition, IoPointDefinition — có CommandAddress/HandoverAddress cho cấu trúc 3-bit Output, xem mục 7 Tab 2, JobInfo, TestResult...) — không phụ thuộc framework/IO
-  EolTester.Communication        IPlcCommunicationDriver + các driver/: ModbusRtu/ (hiện tại), Mc/, Slmp/, CcLink/, EthernetIp/ (tương lai, cùng interface); ModbusWordAddress, ModbusRegisterTable (địa chỉ/bảng thanh ghi Dxxxx — xem mục 7); ModbusSlaveService, StreamAdapter, ModbusRegisterTableDataStore (PC làm Slave qua NModbus — xem mục 6)
-  EolTester.Configuration        Đọc/ghi JSON: cấu hình kết nối, bản đồ I/O, profile spec/model, ngôn ngữ (language.json); CsvIoLabelService (Import/Export nhãn I/O runtime qua UI — xem mục 11); CsvSpecRegisterMapSource + SeedData/spec-register-map.csv (nguồn Address tĩnh cho 6 biến đo lường + các lệnh CMD_, không có UI Import/Export, overlay lại mỗi lần load — xem mục 7 Tab 4, docs/session-log/history.md mục 19); CsvIoMapSeedSource + SeedData/io-map-seed.csv (nguồn bản đồ I/O mặc định, KHÔNG có UI Import/Export, chỉ dùng đúng 1 lần lúc io-map.json chưa tồn tại — khác spec-register-map.csv, xem docs/session-log/history.md mục 19); JsonCsvExportSettingsStore (csv-export-settings.json — cấu hình xuất CSV kết quả, xem mục 7 Tab 4); JsonRuntimeStateStore (runtime-state.json — LastScanOk + số serial + ảnh chụp D100-D199, xem mục 12b); SeedData/users-seed.csv (seed tài khoản, xem mục 8); SeedFiles (4 file seed nhúng vào assembly làm bản gốc khôi phục — xem mục 12c)
-  EolTester.Data                  Audit log + lịch sử kết quả/NG (SQLite)
-  EolTester.Security              Xác thực, mô hình phân quyền (UserRole User/Operator/Admin), FileUserStore (nạp từ users.json, seed từ users-seed.csv — xem mục 8), băm mật khẩu (PBKDF2/BCrypt — không bao giờ lưu plaintext), Licensing/ (cấp phép bản quyền khóa theo máy — xem mục 9)
-/tests
-  EolTester.Core.Tests
-  EolTester.Communication.Tests    gồm test encode/decode khung Modbus RTU, không cần phần cứng thật
+  EolTester.App                 Phần ĐẶC THÙ máy này — tham chiếu EolTester.Platform.Wpf qua PackageReference:
+    App.xaml(.cs)                composition root (DI) — đăng ký dịch vụ dùng chung + IMainTabViewModel/
+                                  ISettingTabViewModel trỏ đúng lớp máy này
+    Eol705715C24SpecProfileSeeder implement ISpecProfileSeeder (Platform) — bộ bước đo mặc định + AuxiliarySteps
+                                  (mmtDir/MMT Quay) của máy này
+    ViewModels/MainTabViewModel   IMainTabViewModel — bảng "Kiểm tra khác", tín hiệu qua
+                                  PlcPollingService.GetOrCreateBitSignal
+    ViewModels/SettingTabViewModel ISettingTabViewModel — compose OperationalSettingsViewModel/
+                                  CsvExportSettingsViewModel (Platform) + bảng giới hạn High/Low đặc thù máy này
+    Views/MainTabView, Views/SettingTabView (dùng pviews:ModeTestView/TimerSettingsView/ScanSettingsView/
+                                  CsvExportSettingsView của Platform cho phần dùng chung)
+    LicenseWindow, SingleInstanceWarningWindow, Resources/ (Strings.resx — giữ TOÀN BỘ chuỗi kể cả chuỗi dùng
+                                  chung, vì Translation (Platform) tra theo Assembly.GetEntryAssembly())
+    Assets/                       ảnh riêng máy này — Content+CopyToOutputDirectory
+    SeedData/                     4 file CSV seed riêng máy này — EmbeddedResource+CopyToOutputDirectory
+/tmp
+  PlcReadProbe                   Console probe PLC — PackageReference EolTester.Communication/Configuration
 /docs
   legacy-ui/                     4 ảnh tham khảo + ghi chú ngắn cho từng màn hình
 ```

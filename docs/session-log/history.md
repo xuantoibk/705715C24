@@ -929,3 +929,48 @@ Phiên dài, xử lý 1 loạt yêu cầu độc lập của người dùng: th�
 - **Đơn vị Timer đổi ms → x0.1s (chỉ nhãn + mặc định)** — Lý do: người dùng thống nhất với PLC dùng đơn vị 0.1s. Tên field/khóa `PARAM_*_MS`/`DelayTimersMs` giữ nguyên vì đổi tên lan rộng quá nhiều nơi. File config cũ (2000/500) KHÔNG tự chuyển đổi.
 - **SeedFiles: hỏi khôi phục (OK) / thoát (Cancel), không degrade âm thầm, không hard fail-loud** — Lý do: seed là nội dung đi kèm build, tái tạo chính xác được; degrade âm thầm (đặc biệt `spec-register-map.csv` thiếu → PLC "câm") là rủi ro chất lượng.
 - **Đóng gói: chọn `SatelliteResourceLanguages=en-US` (0 rủi ro) bây giờ; hoãn 1c single-file** — Lý do: sắp kiểm thử PLC thật, chưa muốn đụng đường nạp assembly WPF. 1c ghi vào memory làm việc treo (`pending-1c-single-file-packaging`).
+
+## 44. Tóm tắt phiên làm việc (2026-09-15) — Chuyển sang lõi dùng chung EolTester.Platform (tách kiến trúc đa máy)
+
+### Bối cảnh
+Người dùng có 2 máy cùng gốc code nhưng bị copy-sửa tay lệch nhau theo thời gian (máy này thiếu SCAN MODE/REV MODE,
+kiểm tra độ dài mã scan, "Khớp phần text cố định quanh serial", quét nền qua Raw Input so với máy 705/715 —
+`D:\claude\Day1-PLC CONNECT RS485-MC\705715_C25`). Toàn bộ công việc tách lõi dùng chung (`EolTester.Platform`,
+repo mới) thực hiện trong 1 phiên dài bắt đầu từ máy 705/715 — xem **`705715_C25\docs\session-log\history.md`
+mục 50-51** để có bối cảnh/quyết định/bẫy kỹ thuật đầy đủ (không lặp lại ở đây). Mục này chỉ ghi phần RIÊNG của
+máy này (705715-C24).
+
+Trước khi động vào: đã commit 7 file thay đổi mmtDir/"Kiểm tra khác" đang dang dở (`git log` — commit
+`7aad1f2`) để có điểm mốc an toàn.
+
+### Trạng thái
+| Việc | Trạng thái | Ghi chú |
+|---|---|---|
+| Xóa `src/EolTester.Core\|Communication\|Configuration\|Data\|Security` + `tests/` cục bộ | ✅ Xong | Chuyển sang `EolTester.Platform` (Core/Communication/Data/Security 100% giống máy kia — xác nhận qua diff trước khi xóa) |
+| `nuget.config` trỏ feed local | ✅ Xong | |
+| `Eol705715C24SpecProfileSeeder` (implement `ISpecProfileSeeder`) | ✅ Xong | Port nguyên `CreateSeedProfile`/`AuxiliarySteps` (Kiểm tra led/MMT Quay/Chiều quay MMT) từ `JsonSpecProfileStore` cũ |
+| `MainTabViewModel` — `Led1/Led2/Led3/ProductDetected` qua `GetOrCreateBitSignal` | ✅ Xong | Thay pass-through property cũ (`_polling.Led1`...) đã bị xóa khỏi `PlcPollingService` dùng chung |
+| `SettingTabViewModel`/`SettingTabView.xaml` — compose `OperationalSettingsViewModel`/`CsvExportSettingsViewModel` | ✅ Xong | Copy nguyên từ máy 705/715 (100% dùng chung sau khi tách) — **tự động có thêm** 2 tính năng trước đây thiếu |
+| `App.xaml`/`App.xaml.cs` — DataTemplate + DI cho `IMainTabViewModel`/`ISettingTabViewModel` | ✅ Xong | |
+| `EolTester.App.csproj` — PackageReference thay ProjectReference, Assets Content, SeedData EmbeddedResource | ✅ Xong | |
+| Bổ sung 3 khóa resx thiếu (`Setting_MatchScanFixedText`/`Setting_AllowBackgroundScan`/Hint) | ✅ Xong | Tính năng mới cần resx riêng — không tự thừa hưởng từ máy kia |
+| Verify UI thật (4 tab) | ✅ Xong | Main tab đúng bảng "Kiểm tra khác"; Set Spec tab có đủ 2 checkbox mới, hiển thị đúng tiếng Việt sau khi thêm resx; Monitor/Setup không đổi |
+| `dotnet build` | ✅ 0 lỗi | Test lõi dùng chung đã chuyển hẳn sang `EolTester.Platform`, solution này không còn test riêng |
+
+### Bẫy kỹ thuật đã gặp (riêng máy này)
+- **`TestStepRowViewModel.Description` (lớp dùng chung) từng hardcode `switch` theo Key** — máy này dùng CHUNG
+  Key `"Low.led2"` với máy 705/715 nhưng ý nghĩa khác hẳn ("MMT Quay" thay vì "Kiểm tra LED 2") — verify UI lần
+  đầu hiện chữ thô "Spec_Led2Check" ngay trên bảng "Kiểm tra khác". Đã sửa tận gốc bên `EolTester.Platform`
+  (thêm `TestStepDefinition.DescriptionResxKey`, xem history.md máy 705/715 mục 51) — máy này chỉ cần gán đúng
+  khóa resx CỦA MÌNH (`Spec_MmtRunCheck`/`Spec_MmtDirCheck`) trong seeder, không sửa gì ở lớp dùng chung.
+
+### Chưa test
+- Chưa publish lại `APP/` (skill `publish-app`/`.claude/agents/publisher.md` của máy này chưa cập nhật để biết
+  về NuGet package — vẫn giả định `ProjectReference` cũ, cần sửa trước khi dùng skill này lần tới).
+- Chưa test hardware thật (barcode scanner vật lý, PLC thật) sau khi tách — chỉ verify qua UI tĩnh, đúng phạm
+  vi giai đoạn tách kiến trúc.
+
+### Bước tiếp theo
+Cập nhật `.claude/skills/publish-app/SKILL.md`/`.claude/agents/publisher.md` của máy này (đường dẫn lệnh build/
+publish + bước xác nhận version package `EolTester.Platform.Wpf` trước khi publish Release) — chưa làm trong
+phiên này vì người dùng chưa yêu cầu publish máy này.
