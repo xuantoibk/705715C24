@@ -58,13 +58,12 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Trái: bảng kết quả bước kiểm tra (chỉ đọc) + khối "Kết quả" OK/NG tổng hợp bên dưới. Bọc
-             TestTablesPanel riêng (không gộp khối Kết quả vào trong) vì khối tín hiệu LED/Sensor ở giữa bind
-             Height đúng bằng ActualHeight của TestTablesPanel — gộp chung sẽ kéo khối đó dài thêm theo. -->
+        <!-- Trái: bảng kết quả bước kiểm tra (chỉ đọc). Khối "Kết quả" OK/NG tổng hợp đã chuyển sang cột giữa,
+             ngay dưới dòng "Có Sản phẩm" (theo yêu cầu người dùng). -->
         <StackPanel Grid.Column="0" Margin="4">
         <StackPanel x:Name="TestTablesPanel">
             <TextBlock Text="{loc:Tr Main_HighMode}" FontWeight="Bold" FontSize="14" Margin="0,0,0,4"/>
-            <DataGrid ItemsSource="{Binding HighModeSteps}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" CanUserAddRows="False" MaxHeight="220">
+            <DataGrid ItemsSource="{Binding HighModeConfiguredSteps}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" CanUserAddRows="False" MaxHeight="220">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{loc:Tr Main_Description}" Binding="{Binding Description}" Width="2*"/>
                     <DataGridTextColumn Header="{loc:Tr Main_LowerLimit}" Binding="{Binding LowerLimitDisplayText}" Width="*"/>
@@ -76,7 +75,22 @@
             </DataGrid>
 
             <TextBlock Text="{loc:Tr Main_LowMode}" FontWeight="Bold" FontSize="14" Margin="0,12,0,4"/>
-            <DataGrid ItemsSource="{Binding LowModeSteps}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" CanUserAddRows="False" MaxHeight="220">
+            <DataGrid ItemsSource="{Binding LowModeConfiguredSteps}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" CanUserAddRows="False" MaxHeight="220">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{loc:Tr Main_Description}" Binding="{Binding Description}" Width="2*"/>
+                    <DataGridTextColumn Header="{loc:Tr Main_LowerLimit}" Binding="{Binding LowerLimitDisplayText}" Width="*"/>
+                    <DataGridTemplateColumn Header="{loc:Tr Main_Value}" Width="*" CellTemplate="{StaticResource ValueCellTemplate}"/>
+                    <DataGridTextColumn Header="{loc:Tr Main_UpperLimit}" Binding="{Binding UpperLimitDisplayText}" Width="*"/>
+                    <DataGridTextColumn Header="{loc:Tr Main_Unit}" Binding="{Binding Unit}" Width="60"/>
+                    <DataGridTemplateColumn Header="{loc:Tr Main_OkNg}" Width="70" CellTemplate="{StaticResource OkNgCellTemplate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Bảng "Kiểm tra khác": các bước kiểu OK/NG thuần (Kiểm tra led / MMT Quay / Chiều quay MMT) —
+                 không có giới hạn số, cột "Giá trị" hiện trực tiếp OK/NG (xem ValueCellTemplate, nhánh
+                 IsConfigured=False). "MMT Quay" = Low.led2/D66, "Chiều quay MMT" = High.mmtDir/D69. -->
+            <TextBlock Text="{loc:Tr Main_OtherChecks}" FontWeight="Bold" FontSize="14" Margin="0,12,0,4"/>
+            <DataGrid ItemsSource="{Binding OtherCheckSteps}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" CanUserAddRows="False" MaxHeight="220">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{loc:Tr Main_Description}" Binding="{Binding Description}" Width="2*"/>
                     <DataGridTextColumn Header="{loc:Tr Main_LowerLimit}" Binding="{Binding LowerLimitDisplayText}" Width="*"/>
@@ -88,37 +102,14 @@
             </DataGrid>
         </StackPanel>
 
-        <!-- Kết quả tổng hợp — cùng thanh ghi SIGNAL_NG_DETECTED (D71) với ô "PHÁT HIỆN HÀNG NG" ở footer
-             (MainTabViewModel.NgDetected trỏ chung PlcPollingService.NgDetected, tự đồng bộ). 0/null = ẩn ảnh
-             (khung trống), 1 = ok.png, 2 = ng.png. -->
-        <StackPanel>
-            <TextBlock Text="{loc:Tr Main_ResultHeader}" FontWeight="Bold" FontSize="18" Foreground="#CA8A04" Margin="0,16,0,8"/>
-            <Border Width="100" Height="100" BorderBrush="Red" BorderThickness="2" HorizontalAlignment="Left" Background="White">
-                <Image Stretch="Uniform" Margin="4">
-                    <Image.Style>
-                        <Style TargetType="Image">
-                            <Setter Property="Source" Value="{x:Null}"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding NgDetected.Value}" Value="1">
-                                    <Setter Property="Source" Value="/Assets/ok.png"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding NgDetected.Value}" Value="2">
-                                    <Setter Property="Source" Value="/Assets/ng.png"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
-            </Border>
-        </StackPanel>
         </StackPanel>
 
-        <!-- Giữa: tín hiệu LED1/LED2 + cảm biến phát hiện sản phẩm (bit Dxxxx.Y, spec-register-map.csv).
-             Height khớp đúng bằng ActualHeight của TOÀN BỘ khối bảng High+Low mode (TestTablesPanel, không
-             chỉ riêng bảng High mode) — đúng theo mockup Automatic _Main_V3.png, khung tín hiệu trải dài từ
-             đỉnh "High mode" tới đáy bảng "Low mode". -->
-        <Border Grid.Column="1" Margin="8" Padding="8" Background="#F9FAFB" BorderBrush="#D1D5DB" BorderThickness="1"
-                VerticalAlignment="Top" Height="{Binding ActualHeight, ElementName=TestTablesPanel}">
+        <!-- Giữa: tín hiệu LED + cảm biến phát hiện sản phẩm (bit Dxxxx.Y, spec-register-map.csv), rồi khối
+             "Kết quả" tổng hợp ngay bên dưới dòng "Có Sản phẩm" (theo yêu cầu người dùng — trước đây nằm ở
+             cột trái dưới bảng bước kiểm tra). Border tín hiệu tự co theo nội dung (bỏ ràng buộc Height theo
+             TestTablesPanel) để "Kết quả" bám sát ngay sau hàng sensor. -->
+        <StackPanel Grid.Column="1" Margin="8" VerticalAlignment="Top">
+        <Border Padding="8" Background="#F9FAFB" BorderBrush="#D1D5DB" BorderThickness="1">
             <StackPanel Width="220">
                 <TextBlock Text="{loc:Tr Main_LedSignalHeader}" FontWeight="Bold" Margin="0,0,0,8"/>
                 <Grid Margin="0,4">
@@ -157,6 +148,29 @@
                 </Grid>
             </StackPanel>
         </Border>
+
+        <!-- Kết quả tổng hợp — cùng thanh ghi SIGNAL_NG_DETECTED (D71) với ô "PHÁT HIỆN HÀNG NG" ở footer
+             (MainTabViewModel.NgDetected trỏ chung PlcPollingService.NgDetected, tự đồng bộ). 0/null = ẩn ảnh
+             (khung trống), 1 = ok.png, 2 = ng.png. Ảnh phóng to (~190px) theo yêu cầu người dùng. -->
+        <TextBlock Text="{loc:Tr Main_ResultHeader}" FontWeight="Bold" FontSize="18" Foreground="#CA8A04" Margin="0,16,0,8"/>
+        <Border Width="190" Height="190" BorderBrush="Red" BorderThickness="2" HorizontalAlignment="Left" Background="White">
+            <Image Stretch="Uniform" Margin="6">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Source" Value="{x:Null}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding NgDetected.Value}" Value="1">
+                                <Setter Property="Source" Value="/Assets/ok.png"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding NgDetected.Value}" Value="2">
+                                <Setter Property="Source" Value="/Assets/ng.png"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </Border>
+        </StackPanel>
 
         <!-- Phải: logo + lịch sử thông báo -->
         <StackPanel Grid.Column="2" Margin="4">

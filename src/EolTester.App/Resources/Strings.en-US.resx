@@ -58,11 +58,13 @@
   <!-- Main tab -->
   <data name="Main_HighMode" xml:space="preserve"><value>High mode</value></data>
   <data name="Main_LowMode" xml:space="preserve"><value>Low mode</value></data>
-  <data name="Spec_Voltage" xml:space="preserve"><value>Motor Speed</value></data>
+  <data name="Spec_Voltage" xml:space="preserve"><value>----</value></data>
   <data name="Spec_Current" xml:space="preserve"><value>Current</value></data>
   <data name="Spec_Vacuum" xml:space="preserve"><value>Vacuum Force</value></data>
-  <data name="Spec_Led1Check" xml:space="preserve"><value>Check LED 1</value></data>
-  <data name="Spec_Led2Check" xml:space="preserve"><value>Check LED 2</value></data>
+  <data name="Spec_Led1Check" xml:space="preserve"><value>Check LED</value></data>
+  <data name="Spec_MmtRunCheck" xml:space="preserve"><value>MMT Run</value></data>
+  <data name="Spec_MmtDirCheck" xml:space="preserve"><value>MMT Direction</value></data>
+  <data name="Main_OtherChecks" xml:space="preserve"><value>Other checks</value></data>
   <data name="Main_Description" xml:space="preserve"><value>Description</value></data>
   <data name="Main_LowerLimit" xml:space="preserve"><value>Lower limit</value></data>
   <data name="Main_Value" xml:space="preserve"><value>Value</value></data>
@@ -76,8 +78,8 @@
   <data name="Main_ResultHeader" xml:space="preserve"><value>Result</value></data>
   <data name="Main_LedSignalHeader" xml:space="preserve"><value>LED SIGNAL</value></data>
   <data name="Main_Led1" xml:space="preserve"><value>LED 1</value></data>
-  <data name="Main_Led2" xml:space="preserve"><value>LED 2</value></data>
-  <data name="Main_Led3" xml:space="preserve"><value>LED 3</value></data>
+  <data name="Main_Led2" xml:space="preserve"><value>MMT Run</value></data>
+  <data name="Main_Led3" xml:space="preserve"><value>MMT Direction</value></data>
   <data name="Main_SensorHeader" xml:space="preserve"><value>PRODUCT SENSOR</value></data>
   <data name="Main_ProductDetected" xml:space="preserve"><value>Product present</value></data>
 

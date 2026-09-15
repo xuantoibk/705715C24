@@ -19,9 +19,10 @@ public partial class TestStepRowViewModel : ObservableObject
 
     public TestStepDefinition Definition { get; }
 
-    /// <summary>Tên bước hiển thị — với 5 bước thuộc khung cố định High/Low mode (voltage/current/vacuum/led1/led2,
-    /// giống nhau ở mọi model, chỉ khác giới hạn) tra qua resx (Spec_Voltage...Spec_Led2Check) để tự đổi theo cờ
-    /// VI/EN; bước lạ (ngoài 5 khóa này, nếu model sau này thêm) rơi về đúng chuỗi đã lưu trong spec-profile.json
+    /// <summary>Tên bước hiển thị — với các bước thuộc khung cố định (voltage/current/vacuum + kiểm tra tín
+    /// hiệu led1/led2/mmtDir, giống nhau ở mọi model, chỉ khác giới hạn) tra qua resx (Spec_Voltage/Spec_Current/
+    /// Spec_Vacuum/Spec_Led1Check/Spec_MmtRunCheck/Spec_MmtDirCheck) để tự đổi theo cờ VI/EN; bước lạ (ngoài các
+    /// khóa này, nếu model sau này thêm) rơi về đúng chuỗi đã lưu trong spec-profile.json
     /// (Definition.Description) — không có resx tương ứng thì không có gì để tự đổi ngôn ngữ.</summary>
     public string Description => Definition.Key switch
     {
@@ -29,7 +30,8 @@ public partial class TestStepRowViewModel : ObservableObject
         "High.current" or "Low.current" => Translation.Instance["Spec_Current"],
         "High.vacuum" or "Low.vacuum" => Translation.Instance["Spec_Vacuum"],
         "High.led1" => Translation.Instance["Spec_Led1Check"],
-        "Low.led2" => Translation.Instance["Spec_Led2Check"],
+        "Low.led2" => Translation.Instance["Spec_MmtRunCheck"],
+        "High.mmtDir" => Translation.Instance["Spec_MmtDirCheck"],
         _ => Definition.Description,
     };
 

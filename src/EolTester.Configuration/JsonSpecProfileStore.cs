@@ -43,6 +43,21 @@ public sealed class JsonSpecProfileStore : ISpecProfileStore
         }
 
         if (EnsureLedSteps(profile)) needsSave = true;
+
+        // "Tốc độ động cơ" (High/Low.voltage) tạm spare — đơn vị "-" và giới hạn 0/0 (PLC không check dưới
+        // code). Tự chữa file spec-profile.json cũ (seed trước đây dùng Unit "V", giới hạn 21/25, 10/14) khi
+        // nạp, không cần xóa file thủ công.
+        foreach (var step in profile.Steps)
+        {
+            if ((step.Key is "High.voltage" or "Low.voltage") && step.Unit == "V")
+            {
+                step.Unit = "-";
+                step.LowerLimit = 0m;
+                step.UpperLimit = 0m;
+                needsSave = true;
+            }
+        }
+
         if (needsSave) await SaveAsync(profile, ct);
 
 
@@ -60,19 +75,26 @@ public sealed class JsonSpecProfileStore : ISpecProfileStore
         return profile;
     }
 
+    /// <summary>Các bước kiểu kiểm tra tín hiệu (chỉ đọc OK/NG từ 1 thanh ghi, không có giới hạn số) — không
+    /// nằm trong khung cố định High/Low mode, hiển thị ở bảng "Kiểm tra khác" tab Main. OkNgAddress được gán
+    /// sau qua spec-register-map.csv (khóa "{Key}.OkNg").</summary>
+    private static readonly (string Key, TestMode Mode, string Description)[] AuxiliarySteps =
+    [
+        ("High.led1", TestMode.High, "Kiểm tra led"),
+        // "MMT Quay" giữ Key "Low.led2" cũ để bám đúng thanh ghi lịch sử D66 (Low.led2.OkNg) — khác với
+        // "Chiều quay MMT" (High.mmtDir, D69).
+        ("Low.led2", TestMode.Low, "MMT Quay"),
+        ("High.mmtDir", TestMode.High, "Chiều quay MMT"),
+    ];
+
     private static bool EnsureLedSteps(SpecProfile profile)
     {
         var added = false;
-        var nextOrder = profile.Steps.Count == 0 ? 0 : profile.Steps.Max(s => s.Order) + 1;
-
-        if (!profile.Steps.Any(s => s.Key == "High.led1"))
+        foreach (var (key, mode, description) in AuxiliarySteps)
         {
-            profile.Steps.Add(new TestStepDefinition { Key = "High.led1", Mode = TestMode.High, Order = nextOrder++, Description = "Kiểm tra LED 1", Unit = "" });
-            added = true;
-        }
-        if (!profile.Steps.Any(s => s.Key == "Low.led2"))
-        {
-            profile.Steps.Add(new TestStepDefinition { Key = "Low.led2", Mode = TestMode.Low, Order = nextOrder, Description = "Kiểm tra LED 2", Unit = "" });
+            if (profile.Steps.Any(s => s.Key == key)) continue;
+            var nextOrder = profile.Steps.Count == 0 ? 0 : profile.Steps.Max(s => s.Order) + 1;
+            profile.Steps.Add(new TestStepDefinition { Key = key, Mode = mode, Order = nextOrder, Description = description, Unit = "" });
             added = true;
         }
 
@@ -108,7 +130,7 @@ public sealed class JsonSpecProfileStore : ISpecProfileStore
 
         foreach (var mode in new[] { TestMode.High, TestMode.Low })
         {
-            steps.Add(new TestStepDefinition { Key = $"{mode}.voltage", Mode = mode, Order = order++, Description = "Tốc độ động cơ", Unit = "V", LowerLimit = mode == TestMode.High ? 21m : 10m, UpperLimit = mode == TestMode.High ? 25m : 14m });
+            steps.Add(new TestStepDefinition { Key = $"{mode}.voltage", Mode = mode, Order = order++, Description = "Tốc độ động cơ", Unit = "-", LowerLimit = 0m, UpperLimit = 0m });
             steps.Add(new TestStepDefinition { Key = $"{mode}.current", Mode = mode, Order = order++, Description = "Dòng điện", Unit = "A", LowerLimit = 500m, UpperLimit = mode == TestMode.High ? 3000m : 1500m });
             steps.Add(new TestStepDefinition { Key = $"{mode}.vacuum", Mode = mode, Order = order++, Description = "Lực hút chân không", Unit = "kPa", LowerLimit = -80m, UpperLimit = -40m });
         }
