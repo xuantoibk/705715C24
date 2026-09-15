@@ -193,6 +193,9 @@
   <data name="Setting_AllowEditBarcode" xml:space="preserve"><value>Cho phép sửa Barcode</value></data>
   <data name="Setting_RequireScanOrder" xml:space="preserve"><value>Bắt buộc đúng thứ tự tem</value></data>
   <data name="Setting_CheckDuplicateInLog" xml:space="preserve"><value>Check Duplicate in log</value></data>
+  <data name="Setting_MatchScanFixedText" xml:space="preserve"><value>Khớp phần text cố định quanh serial</value></data>
+  <data name="Setting_AllowBackgroundScan" xml:space="preserve"><value>Quét được khi cửa sổ không active (chạy nền)</value></data>
+  <data name="Setting_AllowBackgroundScanHint" xml:space="preserve"><value>Nhận mã quét ngay cả khi ứng dụng bị che/thu nhỏ/app khác đang mở. Lưu ý: ký tự vẫn gõ vào app đang focus lúc đó, và mọi phím gõ trên máy đều bị dò theo mẫu quét khi bật.</value></data>
   <data name="Setting_AdminOnlyHint" xml:space="preserve"><value>(chỉ Admin được bật/tắt)</value></data>
   <data name="Setting_SavedAt" xml:space="preserve"><value>Đã lưu thay đổi lúc {0}</value></data>
   <data name="Setting_Address" xml:space="preserve"><value>Địa chỉ</value></data>

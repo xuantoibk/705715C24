@@ -193,6 +193,9 @@
   <data name="Setting_AllowEditBarcode" xml:space="preserve"><value>Allow barcode edit</value></data>
   <data name="Setting_RequireScanOrder" xml:space="preserve"><value>Require correct label scan order</value></data>
   <data name="Setting_CheckDuplicateInLog" xml:space="preserve"><value>Check Duplicate in log</value></data>
+  <data name="Setting_MatchScanFixedText" xml:space="preserve"><value>Match fixed text around serial</value></data>
+  <data name="Setting_AllowBackgroundScan" xml:space="preserve"><value>Scan while window is inactive (background)</value></data>
+  <data name="Setting_AllowBackgroundScanHint" xml:space="preserve"><value>Receive scans even while the app is covered/minimized/another app is open. Note: characters still get typed into whatever app has focus at that moment, and every keystroke on the PC is checked against the scan pattern while this is on.</value></data>
   <data name="Setting_AdminOnlyHint" xml:space="preserve"><value>(Admin only)</value></data>
   <data name="Setting_SavedAt" xml:space="preserve"><value>Changes saved at {0}</value></data>
   <data name="Setting_Address" xml:space="preserve"><value>Address</value></data>

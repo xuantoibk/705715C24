@@ -3,20 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:conv="clr-namespace:EolTester.App.Converters"
-             xmlns:loc="clr-namespace:EolTester.App.Localization"
+             xmlns:conv="clr-namespace:EolTester.App.Converters;assembly=EolTester.Platform.Wpf"
+             xmlns:loc="clr-namespace:EolTester.App.Localization;assembly=EolTester.Platform.Wpf"
+             xmlns:pviews="clr-namespace:EolTester.App.Views;assembly=EolTester.Platform.Wpf"
              mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1400">
     <UserControl.Resources>
         <conv:BoolToVisibilityConverter x:Key="InverseBoolToVis" Invert="True"/>
-        <conv:BoolToVisibilityConverter x:Key="BoolToVis"/>
-        <conv:BoolEqualsToBrushConverter x:Key="IsHighToLowBrush" CompareTo="False"/>
-        <conv:BoolEqualsToBrushConverter x:Key="IsLowToHighBrush" CompareTo="True"/>
-        <conv:BoolEqualsToBrushConverter x:Key="IsScanModeBrush" CompareTo="False"/>
-        <conv:BoolEqualsToBrushConverter x:Key="IsRevModeBrush" CompareTo="True"/>
 
         <!-- Tô đỏ/cam khi giá trị đang gõ khác giá trị hiện có trong thanh ghi PLC (chưa "Xác nhận thay đổi");
-             tô đỏ đậm (ưu tiên cao hơn, đặt sau nên override) khi Giới hạn dưới > Giới hạn trên — dữ liệu vô lý,
-             không thể dùng để so sánh Đạt/Không đạt lúc vận hành, chặn hẳn ở "Xác nhận thay đổi". -->
+             tô đỏ đậm (ưu tiên cao hơn, đặt sau nên override) khi Giới hạn dưới > Giới hạn trên. -->
         <Style x:Key="LowerLimitPendingStyle" TargetType="TextBlock">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsLowerLimitPending}" Value="True">
@@ -63,6 +58,9 @@
             <ColumnDefinition Width="1.7*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Cột trái: ĐẶC THÙ máy 705/715 — bảng giới hạn High/Low mode gắn với bảng bước đo tab Main của
+             máy này. Khối "MODE TEST" (ModeTestView) tuy đứng cạnh về layout nhưng logic DÙNG CHUNG mọi máy
+             (đã xác nhận qua ảnh chụp UI thật) — DataContext trỏ OperationalSettings. -->
         <StackPanel Grid.Column="0" Margin="4">
             <TextBlock Text="{loc:Tr Setting_NeedLoginHint}" Foreground="Gray" Margin="0,0,0,8" Visibility="{Binding CanEditSpec, Converter={StaticResource InverseBoolToVis}}"/>
 
@@ -88,28 +86,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- MODE TEST: 2 nút set trực tiếp thứ tự High/Low (không toggle) — PARAM_TEST_ORDER (D104.3),
-                 tự lưu + đẩy PLC ngay khi bấm, không cần "Xác nhận thay đổi" (cùng nhóm với "Cho phép sửa
-                 Barcode" ở cột phải). Nút khớp giá trị hiện tại tô xanh, còn lại xám. Cùng hàng: 2 nút
-                 SCAN MODE/REV MODE (PARAM_SCAN_REV_MODE, D104.4) — SCAN MODE tự ép "Cho phép sửa Barcode"
-                 =false/"Bắt buộc đúng thứ tự tem"=true (khóa luôn 2 checkbox đó, xem IsEnabled bên dưới) và
-                 kích hoạt luồng quét barcode tự động ở footer tab Main (ShellViewModel.CommitScanAsync); REV
-                 MODE quay lại hành vi thủ công hiện có, không ép/khóa gì. -->
-            <TextBlock Text="{loc:Tr Setting_ModeTestTitle}" FontWeight="Bold" FontSize="14" Margin="0,16,0,4"/>
-            <StackPanel Orientation="Horizontal">
-                <Button Content="{loc:Tr Setting_ModeTestHighToLow}" Padding="14,6" Margin="0,0,8,0" FontWeight="Bold"
-                        Command="{Binding SetTestOrderCommand}" CommandParameter="HighToLow"
-                        Background="{Binding TestOrderLowToHigh, Converter={StaticResource IsHighToLowBrush}}"/>
-                <Button Content="{loc:Tr Setting_ModeTestLowToHigh}" Padding="14,6" Margin="0,0,24,0" FontWeight="Bold"
-                        Command="{Binding SetTestOrderCommand}" CommandParameter="LowToHigh"
-                        Background="{Binding TestOrderLowToHigh, Converter={StaticResource IsLowToHighBrush}}"/>
-                <Button Content="{loc:Tr Setting_ScanRevModeScan}" Padding="14,6" Margin="0,0,8,0" FontWeight="Bold"
-                        Command="{Binding SetScanRevModeCommand}" CommandParameter="Scan"
-                        Background="{Binding ScanRevMode, Converter={StaticResource IsScanModeBrush}}"/>
-                <Button Content="{loc:Tr Setting_ScanRevModeRev}" Padding="14,6" FontWeight="Bold"
-                        Command="{Binding SetScanRevModeCommand}" CommandParameter="Rev"
-                        Background="{Binding ScanRevMode, Converter={StaticResource IsRevModeBrush}}"/>
-            </StackPanel>
+            <pviews:ModeTestView DataContext="{Binding OperationalSettings}" Margin="0,16,0,0"/>
 
             <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
                 <Button Content="{loc:Tr Setting_ConfirmChanges}" Command="{Binding ConfirmChangesCommand}" Padding="10,4"/>
@@ -128,132 +105,15 @@
             </StackPanel>
         </StackPanel>
 
-        <!-- Giữa: bảng "Timer Setting" — 3 thời gian cố định (test High/Low mode, giữ nút) xếp đầu, rồi tới
-             10 "Delay timer" tùy chỉnh. Nhãn đọc từ spec-register-map.csv (cột Label1/Label2, ghi đè resx
-             theo culture, xem App.xaml.cs), giá trị ms tự lưu + đẩy PLC khi rời ô (LostFocus), cùng cơ chế
-             auto-save với các tham số ở cột phải (SettingTabViewModel.OnTimerSettingCommitted). Bọc
-             ScrollViewer (cùng pattern cột phải) vì 13 dòng × RowHeight 40 có thể vượt không gian cố định
-             của canvas 1400x765. -->
-        <ScrollViewer Grid.Column="1" Margin="12,4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" MaxHeight="620">
-        <StackPanel>
-            <TextBlock Text="{loc:Tr Setting_TimerSectionTitle}" FontWeight="Bold" FontSize="14" Margin="0,0,0,4"/>
-            <DataGrid ItemsSource="{Binding TimerSettingRows}" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="False" RowHeight="33">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="{loc:Tr Setting_TimerNameColumn}" Binding="{Binding Label}" Width="2*" IsReadOnly="True">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Left"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{loc:Tr Setting_TimerValueColumn}" Binding="{Binding ValueMs, UpdateSourceTrigger=LostFocus}" Width="*">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Right"/>
-                                <Setter Property="VerticalAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                        <DataGridTextColumn.EditingElementStyle>
-                            <Style TargetType="TextBox">
-                                <Setter Property="HorizontalContentAlignment" Value="Right"/>
-                                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.EditingElementStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
-        </ScrollViewer>
+        <!-- Giữa + phải: DÙNG CHUNG mọi máy — xem OperationalSettingsViewModel/CsvExportSettingsViewModel. -->
+        <pviews:TimerSettingsView Grid.Column="1" Margin="12,4" DataContext="{Binding OperationalSettings}"/>
 
-        <!-- Cột phải cao hơn không gian cố định của canvas 1400x765 khi hiện đủ SKIP NG + XUẤT CSV (Admin) —
-             bọc ScrollViewer làm lớp phòng vệ, cùng pattern đã dùng ở SetupTabView (cột trái), để nội dung
-             cuối (nút "Lưu cấu hình CSV") không bị footer che khuất thay vì bị ẩn hẳn. -->
         <ScrollViewer Grid.Column="2" Margin="12,4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" MaxHeight="620">
-        <StackPanel>
-            <TextBlock Text="{loc:Tr Setting_Params}" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <!-- Tự lưu + đẩy xuống PLC ngay khi rời ô (LostFocus) — không cần bấm "Xác nhận thay đổi"
-                     (xem SettingTabViewModel.TriggerParamAutoSave). Cố ý dùng LostFocus thay vì PropertyChanged
-                     để không ghi PLC theo từng ký tự số đang gõ dở (VD "1" trước khi gõ xong "12"). Thời gian
-                     test High/Low/giữ nút đã chuyển sang bảng "Timer Setting" ở cột giữa. -->
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{loc:Tr Setting_ScanCodeLength}" VerticalAlignment="Center" Margin="0,4"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ScanCodeLength, UpdateSourceTrigger=LostFocus}" Margin="0,4"/>
-
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="{loc:Tr Setting_SerialRange}" VerticalAlignment="Center" Margin="0,4"/>
-                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4">
-                    <TextBox Width="60" Text="{Binding SerialStartIndex, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="/" Margin="6,0" VerticalAlignment="Center"/>
-                    <TextBox Width="60" Text="{Binding SerialEndIndex, UpdateSourceTrigger=PropertyChanged}"/>
-                </StackPanel>
-
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="{loc:Tr Setting_ScanMode}" VerticalAlignment="Center" Margin="0,4"/>
-                <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,4"
-                          ItemsSource="{Binding ScanModeOptions}" DisplayMemberPath="Label" SelectedValuePath="Value"
-                          SelectedValue="{Binding ScanMode}"/>
-
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="{loc:Tr Setting_ScanPrefixText}" VerticalAlignment="Center" Margin="0,4"
-                           Visibility="{Binding IsPrefixModeSelected, Converter={StaticResource BoolToVis}}"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ScanPrefixText, UpdateSourceTrigger=LostFocus}" Margin="0,4"
-                         Visibility="{Binding IsPrefixModeSelected, Converter={StaticResource BoolToVis}}"/>
-            </Grid>
-
-            <!-- "Cho phép sửa Barcode" vẫn bị khóa (IsEnabled=False) khi đang SCAN MODE (ScanRevMode=false) —
-                 giá trị bị ép bởi SettingTabViewModel.ApplyScanModeInvariant; mở lại khi REV MODE. "Bắt buộc
-                 đúng thứ tự tem" và "Check Duplicate in log" là 2 option ĐỘC LẬP: SCAN MODE không ép, không
-                 khóa — chỉ được đọc khi pipeline SCAN MODE chạy ở ShellViewModel.CommitScanAsync. -->
-            <StackPanel Margin="0,12,0,12">
-                <CheckBox Content="{loc:Tr Setting_AllowEditBarcode}" IsChecked="{Binding AllowEditBarcode}" IsEnabled="{Binding ScanRevMode}"/>
-                <CheckBox Content="{loc:Tr Setting_RequireScanOrder}" IsChecked="{Binding RequireScanOrder}" Margin="0,8,0,0"/>
-                <CheckBox Content="{loc:Tr Setting_CheckDuplicateInLog}" IsChecked="{Binding CheckDuplicateInLog}" Margin="0,8,0,0"/>
+            <StackPanel>
+                <TextBlock Text="{loc:Tr Setting_Params}" FontWeight="Bold" FontSize="14" Margin="0,0,0,8"/>
+                <pviews:ScanSettingsView DataContext="{Binding OperationalSettings}"/>
+                <pviews:CsvExportSettingsView DataContext="{Binding CsvExportSettings}" Margin="0,4,0,0"/>
             </StackPanel>
-
-            <Border BorderBrush="Gray" BorderThickness="1" Padding="8" Margin="0,4,0,0" IsEnabled="{Binding IsAdmin}">
-                <StackPanel>
-                    <TextBlock Text="{loc:Tr Setting_AdminOnlyHint}" FontSize="10" Foreground="Gray" Visibility="{Binding IsAdmin, Converter={StaticResource InverseBoolToVis}}"/>
-                    <TextBlock Text="{loc:Tr Setting_CsvExportTitle}" FontWeight="Bold"/>
-
-                    <Grid Margin="0,6,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{loc:Tr Setting_CsvOutputDirectory}" VerticalAlignment="Center" Margin="0,0,6,0"/>
-                        <TextBox x:Name="CsvOutputDirectoryBox" Grid.Column="1" Text="{Binding CsvOutputDirectory, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
-                        <Button Grid.Column="2" Content="{loc:Tr Setting_Browse}" Command="{Binding BrowseCsvOutputDirectoryCommand}" Padding="8,2" Margin="6,0,0,0"/>
-                    </Grid>
-
-                    <TextBlock Text="{loc:Tr Setting_CsvColumns}" FontSize="11" Foreground="Gray" Margin="0,8,0,2"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="180"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" Text="{Binding CsvColumnsText, UpdateSourceTrigger=PropertyChanged}"
-                                 ToolTip="{loc:Tr Setting_CsvColumnsHint}" VerticalContentAlignment="Center"/>
-                        <ComboBox Grid.Column="1" Margin="6,0,0,0"
-                                  ItemsSource="{Binding CsvColumnSuggestions}" DisplayMemberPath="DisplayText"
-                                  SelectedItem="{Binding SelectedCsvColumnSuggestion}"
-                                  ToolTip="{loc:Tr Setting_CsvSuggestionHint}"/>
-                    </Grid>
-
-                    <Button Content="{loc:Tr Setting_SaveCsvExportSettings}" Command="{Binding SaveCsvExportSettingsCommand}" Padding="8,2" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                </StackPanel>
-            </Border>
-        </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

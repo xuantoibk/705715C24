@@ -301,7 +301,8 @@ public partial class App : Application
         services.AddSingleton<SlmpSlaveService>();
         services.AddSingleton<IPlcSlaveServiceFactory, PlcSlaveServiceFactory>();
         services.AddSingleton<IIoMapStore>(sp => new JsonIoMapStore(AppPaths.ConfigDirectory, sp.GetRequiredService<IIoMapSeedSource>()));
-        services.AddSingleton<ISpecProfileStore>(sp => new JsonSpecProfileStore(AppPaths.ConfigDirectory, sp.GetRequiredService<ISpecRegisterMapSource>()));
+        services.AddSingleton<ISpecProfileSeeder, Eol705715C24SpecProfileSeeder>();
+        services.AddSingleton<ISpecProfileStore>(sp => new JsonSpecProfileStore(AppPaths.ConfigDirectory, sp.GetRequiredService<ISpecRegisterMapSource>(), sp.GetRequiredService<ISpecProfileSeeder>()));
         services.AddSingleton<IConnectionSettingsStore>(_ => new JsonConnectionSettingsStore(AppPaths.ConfigDirectory));
         services.AddSingleton<IRegisterWatchStore>(_ => new JsonRegisterWatchStore(AppPaths.ConfigDirectory));
         services.AddSingleton<ITestParametersStore>(_ => new JsonTestParametersStore(AppPaths.ConfigDirectory));
@@ -328,13 +329,20 @@ public partial class App : Application
         services.AddSingleton(_ => Dispatcher.CurrentDispatcher);
         services.AddSingleton<PlcPollingService>();
 
-        services.AddSingleton<MainTabViewModel>();
+        // Dùng chung mọi máy (EolTester.Platform.Wpf) — xem ISettingTabViewModel/OperationalSettingsViewModel.
+        services.AddSingleton<OperationalSettingsViewModel>();
+        services.AddSingleton<CsvExportSettingsViewModel>();
         services.AddSingleton<MonitorTabViewModel>();
         services.AddSingleton<SetupTabViewModel>();
-        services.AddSingleton<SettingTabViewModel>();
         services.AddSingleton<ShellViewModel>();
-
         services.AddSingleton<MainWindow>();
+
+        // Đặc thù máy này — đăng ký cả kiểu cụ thể (App.xaml.cs cần gọi LoadActiveModelAsync/LoadParametersAsync
+        // trực tiếp) lẫn marker interface (ShellViewModel constructor cần) trỏ CÙNG 1 instance singleton.
+        services.AddSingleton<MainTabViewModel>();
+        services.AddSingleton<IMainTabViewModel>(sp => sp.GetRequiredService<MainTabViewModel>());
+        services.AddSingleton<SettingTabViewModel>();
+        services.AddSingleton<ISettingTabViewModel>(sp => sp.GetRequiredService<SettingTabViewModel>());
     }
 
     protected override async void OnExit(ExitEventArgs e)

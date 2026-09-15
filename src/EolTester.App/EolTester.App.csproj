@@ -1,15 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\EolTester.Core\EolTester.Core.csproj" />
-    <ProjectReference Include="..\EolTester.Communication\EolTester.Communication.csproj" />
-    <ProjectReference Include="..\EolTester.Configuration\EolTester.Configuration.csproj" />
-    <ProjectReference Include="..\EolTester.Data\EolTester.Data.csproj" />
-    <ProjectReference Include="..\EolTester.Security\EolTester.Security.csproj" />
+    <!-- Lõi dùng chung — NuGet package từ feed local D:\NugetLocalFeed (xem ..\..\nuget.config +
+         EolTester.Platform\pack.ps1). Core/Communication/Configuration/Data/Security là dependency của
+         chính package này, tự flow theo, không cần khai lại. -->
+    <PackageReference Include="EolTester.Platform.Wpf" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\**\*.png" />
+    <!-- Content (không phải Resource) + CopyToOutputDirectory: MainWindow (dùng chung, sống trong
+         EolTester.Platform.Wpf.dll) đọc ảnh qua pack://siteoforigin:,,, — ảnh phải là FILE RỜI cạnh exe,
+         không được nhúng vào DLL. -->
+    <Content Include="Assets\**\*.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 4 file seed ĐÚNG CỦA MÁY NÀY: vừa copy ra SeedData\ cạnh exe, VỪA nhúng vào EolTester.App.dll làm
+         bản gốc khôi phục — xem SeedFiles.cs (EolTester.Configuration, dùng chung, tra theo
+         Assembly.GetEntryAssembly()). -->
+    <EmbeddedResource Include="SeedData\spec-register-map.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\io-map-seed.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\spec-Default.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\users-seed.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

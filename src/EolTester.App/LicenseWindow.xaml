@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:loc="clr-namespace:EolTester.App.Localization"
+        xmlns:loc="clr-namespace:EolTester.App.Localization;assembly=EolTester.Platform.Wpf"
         mc:Ignorable="d"
         Title="{loc:Tr License_Title}" Height="360" Width="520"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" FontSize="13">

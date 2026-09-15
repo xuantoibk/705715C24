@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:conv="clr-namespace:EolTester.App.Converters"
-             xmlns:loc="clr-namespace:EolTester.App.Localization"
+             xmlns:conv="clr-namespace:EolTester.App.Converters;assembly=EolTester.Platform.Wpf"
+             xmlns:loc="clr-namespace:EolTester.App.Localization;assembly=EolTester.Platform.Wpf"
              mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1400">
     <UserControl.Resources>
         <conv:PassedToBrushConverter x:Key="PassedToBrush"/>

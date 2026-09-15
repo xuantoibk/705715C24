@@ -6,7 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EolTester.Communication\EolTester.Communication.csproj" />
-    <ProjectReference Include="..\..\src\EolTester.Configuration\EolTester.Configuration.csproj" />
+    <!-- Lõi dùng chung qua NuGet feed local (xem ..\..\nuget.config) — không còn source cục bộ trong repo này. -->
+    <PackageReference Include="EolTester.Communication" Version="1.0.3" />
+    <PackageReference Include="EolTester.Configuration" Version="1.0.3" />
   </ItemGroup>
 </Project>

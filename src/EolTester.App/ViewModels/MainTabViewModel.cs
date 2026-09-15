@@ -7,7 +7,7 @@ using EolTester.Core.Enums;
 
 namespace EolTester.App.ViewModels;
 
-public partial class MainTabViewModel : ObservableObject
+public partial class MainTabViewModel : ObservableObject, IMainTabViewModel
 {
     private readonly PlcPollingService _polling;
     private readonly ISpecProfileStore _specStore;
@@ -38,10 +38,12 @@ public partial class MainTabViewModel : ObservableObject
             .ThenBy(s => s.Definition.Order)
             .ToList();
 
-    public SignalIndicatorState Led1 => _polling.Led1;
-    public SignalIndicatorState Led2 => _polling.Led2;
-    public SignalIndicatorState Led3 => _polling.Led3;
-    public SignalIndicatorState ProductDetected => _polling.ProductDetected;
+    // Tín hiệu đặc thù máy này — tra qua PlcPollingService.GetOrCreateBitSignal (dùng chung, không hardcode
+    // tên máy nào) với đúng khóa SIGNAL_* của máy này trong spec-register-map.csv.
+    public SignalIndicatorState Led1 => _polling.GetOrCreateBitSignal("SIGNAL_LED1");
+    public SignalIndicatorState Led2 => _polling.GetOrCreateBitSignal("SIGNAL_LED2");
+    public SignalIndicatorState Led3 => _polling.GetOrCreateBitSignal("SIGNAL_LED3");
+    public SignalIndicatorState ProductDetected => _polling.GetOrCreateBitSignal("SIGNAL_PRODUCT_DETECT");
 
     /// <summary>Cùng đối tượng <see cref="ShellViewModel.NgDetected"/> (khóa SIGNAL_NG_DETECTED, D71) — dùng
     /// để hiển thị ảnh OK/NG ở khối "Kết quả" tab Main, tự đồng bộ với ô "PHÁT HIỆN HÀNG NG" ở footer vì cùng

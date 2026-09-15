@@ -1,8 +1,17 @@
 ﻿<Application x:Class="EolTester.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:EolTester.App">
+             xmlns:local="clr-namespace:EolTester.App"
+             xmlns:vm="clr-namespace:EolTester.App.ViewModels"
+             xmlns:views="clr-namespace:EolTester.App.Views">
     <Application.Resources>
-
+        <!-- MainWindow (Platform.Wpf, dùng chung) hiển thị tab Main/Set Spec qua ContentControl + DataTemplate
+             ngầm định theo kiểu THẬT của ViewModel — mỗi máy tự đăng ký đúng cặp View/ViewModel của mình ở đây. -->
+        <DataTemplate DataType="{x:Type vm:MainTabViewModel}">
+            <views:MainTabView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingTabViewModel}">
+            <views:SettingTabView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
