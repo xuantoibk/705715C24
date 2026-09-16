@@ -12,7 +12,6 @@ using EolTester.Configuration;
 using EolTester.Configuration.Models;
 using EolTester.Data;
 using EolTester.Security;
-using EolTester.Security.Licensing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -46,8 +45,9 @@ public partial class App : Application
         // lường hết từ nút bấm sẽ crash cả app nếu không có handler ở đây (bug đã xảy ra thật).
         DispatcherUnhandledException += OnDispatcherUnhandledException;
 
-        // Tránh WPF tự Shutdown khi đóng LicenseWindow (ShutdownMode mặc định OnLastWindowClose sẽ coi
-        // LicenseWindow là "cửa sổ cuối cùng" vì MainWindow chưa Show() lúc này) — tự gọi Shutdown() khi cần.
+        // Tránh WPF tự Shutdown trước khi MainWindow kịp Show() (VD người dùng chọn thoát ở dialog thiếu
+        // SeedData) — ShutdownMode mặc định OnLastWindowClose coi "chưa có window nào" tương đương đã đóng
+        // hết; tự gọi Shutdown() khi cần thay vì dựa vào cơ chế tự động.
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
         // Bọc toàn bộ trình tự khởi động (nạp cấu hình JSON/CSV, dựng DI, kết nối PLC, tạo MainWindow) trong
@@ -85,14 +85,13 @@ public partial class App : Application
             .ConfigureServices(ConfigureServices)
             .Build();
 
-        // Nạp ngôn ngữ đã lưu TRƯỚC khi tạo bất kỳ Window nào (kể cả LicenseWindow) để mọi cửa sổ
-        // hiện đúng ngôn ngữ đã chọn từ lần chạy trước.
+        // Nạp ngôn ngữ đã lưu TRƯỚC khi tạo MainWindow để cửa sổ hiện đúng ngôn ngữ đã chọn từ lần chạy trước.
         var languageService = _host.Services.GetRequiredService<ILanguageService>();
         await languageService.InitializeAsync();
 
         // Tiêu đề header + tên Model mặc định đọc từ SeedData/spec-Default.csv (đổi tên sản phẩm chỉ cần
-        // sửa CSV rồi build lại, không dò chuỗi hardcode rải rác) — nạp sớm, trước cả LicenseWindow, để mọi
-        // cửa sổ hiện đúng ngay từ đầu. Thiếu file/khóa thì rơi về mặc định biên dịch sẵn trong code/resx.
+        // sửa CSV rồi build lại, không dò chuỗi hardcode rải rác) — nạp sớm để mọi cửa sổ hiện đúng ngay từ
+        // đầu. Thiếu file/khóa thì rơi về mặc định biên dịch sẵn trong code/resx.
         var defaultInfoSource = _host.Services.GetRequiredService<IDefaultProjectInfoSource>();
         var defaultInfo = await defaultInfoSource.LoadAsync();
         var defaultModel = defaultInfo.GetValueOrDefault("Model", "705/715");
@@ -115,21 +114,6 @@ public partial class App : Application
                 Localization.Translation.Instance.SetOverride("vi-VN", resxKey, labels.Label1);
             if (labels.Label2 is not null)
                 Localization.Translation.Instance.SetOverride("en-US", resxKey, labels.Label2);
-        }
-
-        var licenseService = _host.Services.GetRequiredService<ILicenseService>();
-        var licenseStatus = licenseService.CheckLicense();
-        if (!licenseStatus.IsLicensed)
-        {
-            var licenseViewModel = _host.Services.GetRequiredService<LicenseViewModel>();
-            licenseViewModel.LoadCurrentCode(licenseStatus.RegistrationCode);
-            var licenseWindow = new LicenseWindow(licenseViewModel);
-            bool? registered = licenseWindow.ShowDialog();
-            if (registered != true)
-            {
-                Shutdown();
-                return;
-            }
         }
 
         await _host.StartAsync();
@@ -315,9 +299,6 @@ public partial class App : Application
             AppPaths.ConfigDirectory,
             Path.Combine(AppContext.BaseDirectory, "SeedData", "users-seed.csv")));
         services.AddSingleton<IAuthenticationService, AuthenticationService>();
-        services.AddSingleton<ILicenseStore>(_ => new RegistryLicenseStore());
-        services.AddSingleton<ILicenseService, LicenseService>();
-        services.AddTransient<LicenseViewModel>();
 
         services.AddSingleton<ILanguagePreferenceStore>(_ => new JsonLanguagePreferenceStore(AppPaths.ConfigDirectory));
         services.AddSingleton<ILanguageService, LanguageService>();
