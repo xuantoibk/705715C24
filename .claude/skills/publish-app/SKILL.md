@@ -10,7 +10,7 @@ việc thư mục dự án chuyển vào `705715_C24\` (trước đây nằm tr�
 
 1. Dừng process cũ nếu đang chạy:
    ```powershell
-   Get-Process EolTester.App -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+   Get-Process EolTester.App, ResetCache -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
    ```
 2. Build Debug, dừng nếu có lỗi (đây cũng là bước xác nhận package `EolTester.Platform.Wpf` đã khai trong
    `EolTester.App.csproj` thực sự resolve được từ feed local — lỗi `NU1101`/không tìm thấy package nghĩa là
@@ -35,8 +35,14 @@ việc thư mục dự án chuyển vào `705715_C24\` (trước đây nằm tr�
    trong source `EolTester.Platform` — có thể cần `EolTester.Platform\pack.ps1` (sau khi bump `Version`) rồi
    sửa lại `Version` trong `EolTester.App.csproj` trước khi publish, nếu muốn app này có thay đổi mới nhất của
    lõi. Đây chỉ là CẢNH BÁO tham khảo, không tự ý sửa file hay pack lại — hỏi người dùng trước.
-5. Smoke-test: khởi động `APP\EolTester.App.exe`, chờ + poll tới ~15 giây (cửa sổ có thể hiện chậm ~10s nếu máy không có PLC), xác nhận `MainWindowTitle` khác rỗng, rồi đóng lại (`Stop-Process`).
-6. Xác nhận các file `SeedData/*.csv` đã được copy đúng vào `APP/SeedData/`.
-7. Báo cáo ngắn gọn: build/test (lõi dùng chung)/publish/cảnh báo version (nếu có)/smoke-test đều pass hay có bước nào fail (kèm nguyên văn lỗi nếu có).
-
-Ghi chú: dự án này KHÔNG có tiện ích `ResetCache` (khác máy 705/715) — không có bước publish/copy riêng nào cho nó.
+5. Publish + copy lại tiện ích **ResetCache** — tiện ích DÙNG CHUNG, nguồn nằm ở `EolTester.Platform\tools\EolTester.ResetCache` (bước 4 DỌN SẠCH `APP/` nên đã xoá `ResetCache.*` — phải làm lại mỗi lần):
+   ```powershell
+   $tmp = "$env:TEMP\ResetCache-publish"
+   Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue
+   dotnet publish "d:\Claude\Day1-PLC CONNECT RS485-MC\EolTester.Platform\tools\EolTester.ResetCache\EolTester.ResetCache.csproj" -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -p:DebugType=none -p:DebugSymbols=false -o $tmp
+   Copy-Item "$tmp\ResetCache.exe","$tmp\ResetCache.dll","$tmp\ResetCache.deps.json","$tmp\ResetCache.runtimeconfig.json" "d:\Claude\Day1-PLC CONNECT RS485-MC\705715_C24\APP" -Force
+   ```
+   Chỉ copy đúng 4 file trên (KHÔNG copy cả thư mục — ResetCache dùng chung runtime .NET+WPF mà bản self-contained của app đã trải sẵn trong `APP/`). KHÔNG đóng single-file.
+6. Smoke-test: khởi động `APP\EolTester.App.exe`, chờ + poll tới ~15 giây (cửa sổ có thể hiện chậm ~10s nếu máy không có PLC), xác nhận `MainWindowTitle` khác rỗng, rồi đóng lại (`Stop-Process`). Làm tương tự với `APP\ResetCache.exe` (chờ ~4 giây, xác nhận có cửa sổ).
+7. Xác nhận các file `SeedData/*.csv` đã được copy đúng vào `APP/SeedData/`.
+8. Báo cáo ngắn gọn: build/test (lõi dùng chung)/publish/cảnh báo version (nếu có)/publish ResetCache/smoke-test (cả 2 exe) đều pass hay có bước nào fail (kèm nguyên văn lỗi nếu có).

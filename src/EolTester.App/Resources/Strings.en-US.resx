@@ -134,12 +134,6 @@
   <data name="Setup_Port" xml:space="preserve"><value>Port</value></data>
   <data name="Setup_McFrameFormat" xml:space="preserve"><value>Frame format</value></data>
   <data name="Setup_RefreshPorts" xml:space="preserve"><value>Refresh</value></data>
-  <data name="Setup_RegisterBlockTitle" xml:space="preserve"><value>Register read/write block (PC as Master, PLC as Slave)</value></data>
-  <data name="Setup_RegisterBlockHint" xml:space="preserve"><value>Each polling cycle, the PC reads the whole Input block once and writes the whole Output block once. Enter addresses as numbers (e.g. 1000 = D1000).</value></data>
-  <data name="Setup_InputBlock" xml:space="preserve"><value>Input block</value></data>
-  <data name="Setup_OutputBlock" xml:space="preserve"><value>Output block</value></data>
-  <data name="Setup_RegisterCount" xml:space="preserve"><value>Register count</value></data>
-  <data name="Setup_RegisterCountWarning" xml:space="preserve"><value>{0} registers exceeds the Modbus RTU limit of {1} per request — will need about {2} consecutive requests per cycle, which may slow down cycle time.</value></data>
   <data name="Setup_Role" xml:space="preserve"><value>Role</value></data>
   <data name="Setup_RoleDriver" xml:space="preserve"><value>Role</value></data>
   <data name="Setup_BaudRateParity" xml:space="preserve"><value>Baud rate / Parity</value></data>
@@ -152,9 +146,8 @@
   <data name="Setup_RegisterWatchColDisplayFormat" xml:space="preserve"><value>Display Format</value></data>
   <data name="Setup_RegisterWatchColDataType" xml:space="preserve"><value>Data Type</value></data>
   <data name="Setup_RegisterWatchInvalidAddress" xml:space="preserve"><value>Invalid address (must be Dxxxx, without a bit suffix).</value></data>
-  <data name="Setup_RegisterWatchOutOfRange" xml:space="preserve"><value>Address must be within D0-D2000.</value></data>
+  <data name="Setup_RegisterWatchOutOfRange" xml:space="preserve"><value>Address must be within D0-D199.</value></data>
   <data name="Setup_RegisterWatchInvalidWriteValue" xml:space="preserve"><value>The entered value is invalid for the selected data type/display format.</value></data>
-  <data name="Setup_BlockStartAddressOutOfRange" xml:space="preserve"><value>The Input/Output Block start address must be within D{0}-D{1} (D0-D99 is always read-only, D100-D199 is always write-only).</value></data>
 
   <!-- Set Spec tab -->
   <data name="Setting_HighMode" xml:space="preserve"><value>High mode</value></data>

@@ -4,7 +4,7 @@
     <!-- Lõi dùng chung — NuGet package từ feed local D:\NugetLocalFeed (xem ..\..\nuget.config +
          EolTester.Platform\pack.ps1). Core/Communication/Configuration/Data/Security là dependency của
          chính package này, tự flow theo, không cần khai lại. -->
-    <PackageReference Include="EolTester.Platform.Wpf" Version="1.0.4" />
+    <PackageReference Include="EolTester.Platform.Wpf" Version="1.0.11" />
   </ItemGroup>
 
   <ItemGroup>
