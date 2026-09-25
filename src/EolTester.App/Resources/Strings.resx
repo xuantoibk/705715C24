@@ -54,6 +54,12 @@
   <data name="Footer_ScanRecognized" xml:space="preserve"><value>Mã Scan ghi nhận</value></data>
   <data name="Footer_Operation" xml:space="preserve"><value>OPERATION</value></data>
   <data name="Footer_Reset" xml:space="preserve"><value>RESET</value></data>
+  <data name="Footer_Statistics" xml:space="preserve"><value>THỐNG KÊ</value></data>
+  <data name="Footer_TotalTested" xml:space="preserve"><value>Tổng kiểm tra:</value></data>
+  <data name="Footer_OkCount" xml:space="preserve"><value>Số lượng OK:</value></data>
+  <data name="Footer_NgCount" xml:space="preserve"><value>Số lượng NG:</value></data>
+  <data name="Footer_ResetCounter" xml:space="preserve"><value>ĐẶT LẠI BỘ ĐẾM</value></data>
+  <data name="Notify_ResetCounter" xml:space="preserve"><value>Đặt lại bộ đếm — đã gửi tín hiệu CMD_RESET_COUNTER</value></data>
 
   <!-- Main tab -->
   <data name="Main_HighMode" xml:space="preserve"><value>High mode</value></data>

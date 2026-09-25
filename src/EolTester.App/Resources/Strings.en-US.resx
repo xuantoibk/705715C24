@@ -54,6 +54,12 @@
   <data name="Footer_ScanRecognized" xml:space="preserve"><value>Recognized code</value></data>
   <data name="Footer_Operation" xml:space="preserve"><value>OPERATION</value></data>
   <data name="Footer_Reset" xml:space="preserve"><value>RESET</value></data>
+  <data name="Footer_Statistics" xml:space="preserve"><value>STATISTICS</value></data>
+  <data name="Footer_TotalTested" xml:space="preserve"><value>Total tested:</value></data>
+  <data name="Footer_OkCount" xml:space="preserve"><value>OK count:</value></data>
+  <data name="Footer_NgCount" xml:space="preserve"><value>NG count:</value></data>
+  <data name="Footer_ResetCounter" xml:space="preserve"><value>RESET COUNTER</value></data>
+  <data name="Notify_ResetCounter" xml:space="preserve"><value>Reset counter — sent CMD_RESET_COUNTER signal</value></data>
 
   <!-- Main tab -->
   <data name="Main_HighMode" xml:space="preserve"><value>High mode</value></data>
