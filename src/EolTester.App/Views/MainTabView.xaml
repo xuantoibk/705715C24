@@ -172,16 +172,27 @@
         </Border>
         </StackPanel>
 
-        <!-- Phải: logo + lịch sử thông báo -->
+        <!-- Phải: logo + lịch sử thông báo + Mã Scan ghi nhận cuối. Logo thu nhỏ (110 → 86) và lịch sử dời lên để
+             đủ chỗ cho ô "Mã Scan ghi nhận cuối" trong vùng tab cố định (canvas 1400×765) — theo mockup người
+             dùng 2026-10-27 (đồng bộ với máy C25). -->
         <StackPanel Grid.Column="2" Margin="4">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,16">
-                <Border Width="210" Height="110" Padding="6">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,4">
+                <Border Width="210" Height="86" Padding="6">
                     <Image Source="/Assets/Logo1.png" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
 
-            <TextBlock Text="{loc:Tr Main_NotificationHistory}" FontWeight="Bold" Margin="0,8,0,4"/>
-            <ListBox ItemsSource="{Binding DataContext.NotificationHistory, RelativeSource={RelativeSource AncestorType=Window}}" Height="300"/>
+            <TextBlock Text="{loc:Tr Main_NotificationHistory}" FontWeight="Bold" Margin="0,4,0,4"/>
+            <ListBox ItemsSource="{Binding DataContext.NotificationHistory, RelativeSource={RelativeSource AncestorType=Window}}" Height="290"/>
+
+            <!-- ShellViewModel.LastRecordedScan: chép theo "Mã Scan ghi nhận" ở footer nhưng không bị xoá khi đổi
+                 SCAN MODE ↔ REV MODE. Cùng cỡ chữ với ô footer (ScanFieldBox, MainWindow.xaml) để mã dài hiển thị
+                 vừa như nhau. -->
+            <TextBlock Text="{loc:Tr Main_LastRecordedScan}" FontWeight="Bold" Margin="0,12,0,4"/>
+            <TextBox Text="{Binding DataContext.LastRecordedScan, RelativeSource={RelativeSource AncestorType=Window}, Mode=OneWay}"
+                     IsReadOnly="True" Focusable="False" IsTabStop="False"
+                     FontSize="27" FontWeight="Bold" Foreground="Black" Background="White"
+                     BorderBrush="#C7CCD6" BorderThickness="1" Padding="8,4" VerticalContentAlignment="Center"/>
         </StackPanel>
     </Grid>
 </UserControl>

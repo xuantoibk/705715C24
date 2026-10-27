@@ -79,6 +79,7 @@
   <data name="Main_PlcGain" xml:space="preserve"><value>PLC Gain</value></data>
   <data name="Main_SignalIndicator" xml:space="preserve"><value>Signal indicators</value></data>
   <data name="Main_NotificationHistory" xml:space="preserve"><value>Notification / error history</value></data>
+  <data name="Main_LastRecordedScan" xml:space="preserve"><value>Last recognized code</value></data>
   <data name="Main_NotConfigured" xml:space="preserve"><value>not configured</value></data>
   <data name="Main_OkNg" xml:space="preserve"><value>OK / NG</value></data>
   <data name="Main_ResultHeader" xml:space="preserve"><value>Result</value></data>
