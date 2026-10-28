@@ -242,6 +242,8 @@
   <data name="Notify_Scan" xml:space="preserve"><value>Quét mã: {0}</value></data>
   <data name="Notify_CsvWriteFailed" xml:space="preserve"><value>Ghi CSV kết quả thất bại: {0}</value></data>
   <data name="Notify_ScanLogWriteFailed" xml:space="preserve"><value>Ghi scanlog chống trùng barcode thất bại: {0}</value></data>
+  <data name="Notify_PlcAlarm" xml:space="preserve"><value>LỖI: {0}</value></data>
+  <data name="Notify_PlcAlarmCleared" xml:space="preserve"><value>Đã hết lỗi: {0}</value></data>
   <data name="Notify_CsvWriteSkippedEmptyBarcode" xml:space="preserve"><value>Bỏ qua ghi CSV/scanlog: Mã Scan ghi nhận đang rỗng</value></data>
   <data name="Notify_ScanRejectedInvalidSerial" xml:space="preserve"><value>Từ chối mã {0}: không trích xuất được số thứ tự hợp lệ</value></data>
   <data name="Notify_ScanRejectedOrder" xml:space="preserve"><value>Từ chối mã {0}: sai thứ tự (số thứ tự {1} không phải {2})</value></data>
