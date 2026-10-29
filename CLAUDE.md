@@ -109,7 +109,7 @@ Khi triển khai từng màn hình tương ứng, cần đối chiếu lại cá
 
 ## 4. Công nghệ đã chốt cho dự án này
 - **Kiến trúc đa máy (2026-09-15)**: dự án này (`705715_C24`) là 1 trong N "app đầu" dùng chung 1 lõi — xem
-  `D:\claude\Day1-PLC CONNECT RS485-MC\EolTester.Platform` (repo riêng, có CLAUDE.md mô tả đầy đủ "hợp đồng"
+  `D:\PLC CONNECT RS485-MC\EolTester.Platform` (repo riêng, có CLAUDE.md mô tả đầy đủ "hợp đồng"
   giữa lõi và app đầu — ĐỌC FILE ĐÓ trước khi sửa bất kỳ tính năng nào tưởng là dùng chung). Repo này chỉ còn
   giữ phần ĐẶC THÙ máy này: `MainTabView`/`MainTabViewModel` (bảng "Kiểm tra khác" — mmtDir/MMT Quay),
   `SettingTabView`/`SettingTabViewModel` (compose `OperationalSettingsViewModel`/`CsvExportSettingsViewModel`
@@ -134,7 +134,7 @@ Khi triển khai từng màn hình tương ứng, cần đối chiếu lại cá
 
 ### Lệnh thường dùng (build / test / run / publish)
 Không có file `.sln` — dùng `EolTester.slnx` (solution file định dạng mới, `dotnet` CLI đọc trực tiếp) ở thư mục gốc repo.
-`nuget.config` trỏ thêm feed local `D:\claude\Day1-PLC CONNECT RS485-MC\NugetLocalFeed` (lõi dùng chung — xem
+`nuget.config` trỏ thêm feed local `D:\PLC CONNECT RS485-MC\NugetLocalFeed` (lõi dùng chung — xem
 ghi chú "Kiến trúc đa máy" ở đầu mục 4). Test lõi dùng chung đã chuyển sang
 `EolTester.Platform\EolTester.Platform.slnx`, KHÔNG còn trong solution này.
 
@@ -159,13 +159,13 @@ dotnet publish src/EolTester.App/EolTester.App.csproj -c Release -r win-x64 --se
 
 - Skill `publish-app` / agent `publisher` (`.claude/skills/publish-app/`, `.claude/agents/publisher.md`) tự động hóa đúng trình tự trên (dừng process cũ đang giữ file → build Debug → test → publish Release → smoke-test khởi động thử `APP/EolTester.App.exe`) — dùng khi cần cập nhật `APP/` sau khi code đã xác nhận đúng, không dùng để tự sửa lỗi code.
 - Skill `verify-ui` tự động hóa việc chụp ảnh xác minh UI thật đúng chuẩn `PrintWindow` (không full-screen capture, xem Phần I mục 7) — dùng thay vì tự viết script chụp ảnh mỗi lần cần verify 1 thay đổi giao diện.
-- **`ResetCache.exe` — tiện ích xóa cache cấu hình, DÙNG CHUNG** (nguồn ở `D:\claude\Day1-PLC CONNECT RS485-MC\EolTester.Platform\tools\EolTester.ResetCache`, mô tả đầy đủ ở mục 12d của `705715_C25\CLAUDE.md`): publish self-contained KHÔNG single-file rồi chỉ chép 4 file `ResetCache.exe/.dll/.deps.json/.runtimeconfig.json` vào `APP/` (dùng chung runtime của app). `dotnet publish -o APP` xóa sạch `APP/` nên phải chép lại sau MỖI lần publish — skill `publish-app`/agent `publisher` đã có bước này. (Trước 2026-09-21 máy này không có tiện ích.)
+- **`ResetCache.exe` — tiện ích xóa cache cấu hình, DÙNG CHUNG** (nguồn ở `D:\PLC CONNECT RS485-MC\EolTester.Platform\tools\EolTester.ResetCache`, mô tả đầy đủ ở mục 12d của `705715_C25\CLAUDE.md`): publish self-contained KHÔNG single-file rồi chỉ chép 4 file `ResetCache.exe/.dll/.deps.json/.runtimeconfig.json` vào `APP/` (dùng chung runtime của app). `dotnet publish -o APP` xóa sạch `APP/` nên phải chép lại sau MỖI lần publish — skill `publish-app`/agent `publisher` đã có bước này. (Trước 2026-09-21 máy này không có tiện ích.)
 - `tmp/PlcReadProbe` (nằm trong `EolTester.slnx`) là project console nhỏ để tự thăm dò/đọc thanh ghi PLC thật ngoài luồng app chính — không phải một phần kiến trúc chính thức, chỉ dùng khi cần chẩn đoán địa chỉ D trực tiếp qua cổng COM.
 - `test-rs485.ps1` ở thư mục gốc là script tiện ích build + chạy riêng `EolTester.Communication.Tests` (`.\test-rs485.ps1 [-Config Debug|Release] [-Verbose]`), có in tóm tắt tên các bộ test — **danh sách tên test trong script là text cố định viết tay, không phải kết quả tự dò**, nên vẫn còn nhắc tới `MockModbusDriverTests` dù driver này đã bị gỡ bỏ (xem mục 4); đừng dựa vào output đó để biết bộ test hiện có, chỉ dùng script này như một cách chạy nhanh `dotnet test` đã build sẵn.
 
 ## 5. Cấu trúc solution
 **Lõi dùng chung (Core/Communication/Configuration/Data/Security + Platform.Wpf) KHÔNG còn nằm trong repo này**
-— xem `D:\claude\Day1-PLC CONNECT RS485-MC\EolTester.Platform` (repo riêng, CLAUDE.md riêng). Repo này chỉ còn:
+— xem `D:\PLC CONNECT RS485-MC\EolTester.Platform` (repo riêng, CLAUDE.md riêng). Repo này chỉ còn:
 ```
 /src
   EolTester.App                 Phần ĐẶC THÙ máy này — tham chiếu EolTester.Platform.Wpf qua PackageReference:

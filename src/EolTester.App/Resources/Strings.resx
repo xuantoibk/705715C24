@@ -247,6 +247,7 @@
   <data name="Notify_CsvWriteSkippedEmptyBarcode" xml:space="preserve"><value>Bỏ qua ghi CSV/scanlog: Mã Scan ghi nhận đang rỗng</value></data>
   <data name="Notify_ScanRejectedInvalidSerial" xml:space="preserve"><value>Từ chối mã {0}: không trích xuất được số thứ tự hợp lệ</value></data>
   <data name="Notify_ScanRejectedOrder" xml:space="preserve"><value>Từ chối mã {0}: sai thứ tự (số thứ tự {1} không phải {2})</value></data>
+  <data name="Notify_ScanRejectedNgRetest" xml:space="preserve"><value>Từ chối mã {0}: sản phẩm trước NG — phải quét lại đúng mã {1} để test lại</value></data>
   <data name="Notify_ScanRejectedDuplicate" xml:space="preserve"><value>Từ chối mã {0}: đã có trong kết quả hôm nay</value></data>
   <data name="Notify_ScanRejectedSameAsLast" xml:space="preserve"><value>Từ chối mã {0}: trùng với mã Scan ghi nhận gần nhất</value></data>
   <data name="Notify_ScanPipelineError" xml:space="preserve"><value>Lỗi xử lý mã quét {0}: {1}</value></data>

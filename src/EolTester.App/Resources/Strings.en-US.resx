@@ -247,6 +247,7 @@
   <data name="Notify_CsvWriteSkippedEmptyBarcode" xml:space="preserve"><value>Skipped CSV/scanlog write: recorded scan code is empty</value></data>
   <data name="Notify_ScanRejectedInvalidSerial" xml:space="preserve"><value>Rejected code {0}: could not extract a valid serial number</value></data>
   <data name="Notify_ScanRejectedOrder" xml:space="preserve"><value>Rejected code {0}: out of sequence (serial {1} is not {2})</value></data>
+  <data name="Notify_ScanRejectedNgRetest" xml:space="preserve"><value>Rejected code {0}: previous product was NG — rescan the same code {1} to retest</value></data>
   <data name="Notify_ScanRejectedDuplicate" xml:space="preserve"><value>Rejected code {0}: already present in today's results</value></data>
   <data name="Notify_ScanRejectedSameAsLast" xml:space="preserve"><value>Rejected code {0}: identical to the last recorded scan</value></data>
   <data name="Notify_ScanPipelineError" xml:space="preserve"><value>Error processing scanned code {0}: {1}</value></data>
