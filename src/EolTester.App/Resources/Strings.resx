@@ -247,7 +247,15 @@
   <data name="Notify_CsvWriteSkippedEmptyBarcode" xml:space="preserve"><value>Bỏ qua ghi CSV/scanlog: Mã Scan ghi nhận đang rỗng</value></data>
   <data name="Notify_ScanRejectedInvalidSerial" xml:space="preserve"><value>Từ chối mã {0}: không trích xuất được số thứ tự hợp lệ</value></data>
   <data name="Notify_ScanRejectedOrder" xml:space="preserve"><value>Từ chối mã {0}: sai thứ tự (số thứ tự {1} không phải {2})</value></data>
+  <data name="Notify_ScanCaptured" xml:space="preserve"><value>Đã quét: {0} — chờ PLC xác nhận</value></data>
+  <data name="Notify_ScanConfirmNoBuffer" xml:space="preserve"><value>PLC xác nhận (SIGNAL_SCAN_CONFIRM) nhưng ô "Mã Scan quét được" đang rỗng — chưa có mã để ghi nhận</value></data>
+  <data name="Notify_ScanBlockedMachineBusy" xml:space="preserve"><value>Không nhận mã quét: máy đang bận (SIGNAL_MACHINE_WAITING ≠ 0)</value></data>
+  <data name="Notify_ScanBlockedCycleRunning" xml:space="preserve"><value>Không nhận mã quét: chu trình trước chưa kết thúc (CMD_START ≠ 0)</value></data>
+  <data name="Notify_ScanBlockedNoData" xml:space="preserve"><value>Không nhận mã quét: chưa đọc được trạng thái máy từ PLC (chưa kết nối?)</value></data>
+  <data name="Notify_ScanRejectedFixedText" xml:space="preserve"><value>Từ chối mã {0}: phần text cố định quanh serial không khớp mã Scan ghi nhận gần nhất</value></data>
+  <data name="Notify_ScanRejectedLength" xml:space="preserve"><value>Từ chối mã {0}: dài hơn {1} ký tự — không ghi nhận</value></data>
   <data name="Notify_ScanRejectedNgRetest" xml:space="preserve"><value>Từ chối mã {0}: sản phẩm trước NG — phải quét lại đúng mã {1} để test lại</value></data>
+  <data name="Notify_ScanRejectedPrevNotOk" xml:space="preserve"><value>Từ chối mã {0}: mã {1} chưa có kết quả test OK — chờ máy test xong, hoặc quét lại mã {1} để chạy lại</value></data>
   <data name="Notify_ScanRejectedDuplicate" xml:space="preserve"><value>Từ chối mã {0}: đã có trong kết quả hôm nay</value></data>
   <data name="Notify_ScanRejectedSameAsLast" xml:space="preserve"><value>Từ chối mã {0}: trùng với mã Scan ghi nhận gần nhất</value></data>
   <data name="Notify_ScanPipelineError" xml:space="preserve"><value>Lỗi xử lý mã quét {0}: {1}</value></data>

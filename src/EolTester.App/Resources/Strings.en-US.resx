@@ -247,7 +247,15 @@
   <data name="Notify_CsvWriteSkippedEmptyBarcode" xml:space="preserve"><value>Skipped CSV/scanlog write: recorded scan code is empty</value></data>
   <data name="Notify_ScanRejectedInvalidSerial" xml:space="preserve"><value>Rejected code {0}: could not extract a valid serial number</value></data>
   <data name="Notify_ScanRejectedOrder" xml:space="preserve"><value>Rejected code {0}: out of sequence (serial {1} is not {2})</value></data>
+  <data name="Notify_ScanCaptured" xml:space="preserve"><value>Scanned: {0} — waiting for PLC confirmation</value></data>
+  <data name="Notify_ScanConfirmNoBuffer" xml:space="preserve"><value>PLC confirm (SIGNAL_SCAN_CONFIRM) received but "Scanned code" field is empty — nothing to record</value></data>
+  <data name="Notify_ScanBlockedMachineBusy" xml:space="preserve"><value>Scan ignored: machine busy (SIGNAL_MACHINE_WAITING ≠ 0)</value></data>
+  <data name="Notify_ScanBlockedCycleRunning" xml:space="preserve"><value>Scan ignored: previous cycle still running (CMD_START ≠ 0)</value></data>
+  <data name="Notify_ScanBlockedNoData" xml:space="preserve"><value>Scan ignored: machine status not available from PLC (not connected?)</value></data>
+  <data name="Notify_ScanRejectedFixedText" xml:space="preserve"><value>Rejected code {0}: fixed text around the serial does not match the last recorded scan</value></data>
+  <data name="Notify_ScanRejectedLength" xml:space="preserve"><value>Rejected {0}: longer than {1} characters — not recorded</value></data>
   <data name="Notify_ScanRejectedNgRetest" xml:space="preserve"><value>Rejected code {0}: previous product was NG — rescan the same code {1} to retest</value></data>
+  <data name="Notify_ScanRejectedPrevNotOk" xml:space="preserve"><value>Rejected code {0}: code {1} has no OK test result yet — wait for the test to finish, or rescan {1} to run it again</value></data>
   <data name="Notify_ScanRejectedDuplicate" xml:space="preserve"><value>Rejected code {0}: already present in today's results</value></data>
   <data name="Notify_ScanRejectedSameAsLast" xml:space="preserve"><value>Rejected code {0}: identical to the last recorded scan</value></data>
   <data name="Notify_ScanPipelineError" xml:space="preserve"><value>Error processing scanned code {0}: {1}</value></data>
